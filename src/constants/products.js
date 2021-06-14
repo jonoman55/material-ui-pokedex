@@ -1,6 +1,7 @@
 // eslint-disable-next-line
 export default [
     {
+        id: 1,
         title: "Keurig K-Duo",
         price: "$149.99",
         description:
@@ -11,6 +12,7 @@ export default [
             "https://images-na.ssl-images-amazon.com/images/I/61-KUPluVYL._AC_SL1500_.jpg"
     },
     {
+        id: 2,
         title: "KRUPS Electric Spice",
         price: "$19.99",
         description:
@@ -21,6 +23,7 @@ export default [
             "https://images-na.ssl-images-amazon.com/images/I/71FhMLBP9XL._AC_SL1500_.jpg"
     },
     {
+        id: 3,
         title: "Hamilton Beach Flexbrew",
         price: "$89.99",
         description:
@@ -31,6 +34,7 @@ export default [
             "https://images-na.ssl-images-amazon.com/images/I/818rz3CIaFL._AC_SL1500_.jpg"
     },
     {
+        id: 4,
         title: "Secura French Press",
         price: "$36.48",
         description:
@@ -41,6 +45,7 @@ export default [
             "https://images-na.ssl-images-amazon.com/images/I/61XRMmXVwQL._AC_SL1500_.jpg"
     },
     {
+        id: 5,
         title: "Cafe Du Chateau French Press",
         price: "$32.95",
         description:
@@ -51,6 +56,7 @@ export default [
             "https://images-na.ssl-images-amazon.com/images/I/81luUhz7ZlL._AC_SL1500_.jpg"
     },
     {
+        id: 6,
         title: "LIVINGbasics Single Serve Coffee Maker ",
         price: "$37.99",
         description:

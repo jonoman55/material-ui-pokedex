@@ -1,6 +1,6 @@
 import React from 'react';
 import CoffeeCard from './CoffeeCard';
-import { makeStyles, Grid, CssBaseline } from '@material-ui/core';
+import { makeStyles, Grid } from '@material-ui/core';
 import coffeeMakerList from '../constants/products';
 
 const useStyles = makeStyles({
@@ -14,17 +14,17 @@ const useStyles = makeStyles({
 const Content = () => {
     const classes = useStyles();
     const getCoffeeMakerCard = coffeeMakerObj => {
+        const { id } = coffeeMakerObj;
         return (
-            <Grid item xs={12} sm={4}>
+            <Grid item key={id} xs={12} sm={4}>
                 <CoffeeCard {...coffeeMakerObj} />
             </Grid>
         );
     };
 
     return (
-        <Grid container spacing={3} xs={12} sm={12} className={classes.root}>
+        <Grid container spacing={2} xs={12} sm={12} className={classes.root}>
             {coffeeMakerList.map(coffeeMakerObj => getCoffeeMakerCard(coffeeMakerObj))}
-            <CssBaseline />
         </Grid>
     );
 };
