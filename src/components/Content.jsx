@@ -5,7 +5,7 @@ import coffeeMakerList from '../constants/products';
 
 const useStyles = makeStyles({
     root: {
-        paddingLeft: '25px',
+        paddingLeft: '20px',
         paddingTop: '25px',
         paddingBottom: '25px',
     }
