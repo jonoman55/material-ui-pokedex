@@ -1,33 +1,51 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, makeStyles } from '@material-ui/core';
-import { LocalCafe } from '@material-ui/icons';
+import { makeStyles, AppBar, Toolbar, Button, Link, Container } from '@material-ui/core';
+import { Copyright } from '@material-ui/icons';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
-        display: 'flex',
-        textAlign: 'center',
-        backgroundColor: '#424242'
+        bottom: 0,
+        borderTopLeftRadius: '1rem',
+        borderTopRightRadius: '1rem',
     },
-    text: {
-        flex: 1,
-        paddingLeft: '25px',
-        paddingRight: '25px',
-    }
-});
+    href: {
+        display: 'flex',
+        width: '100%',
+        alignContent: "center",
+        justifyContent: 'center',
+        padding: theme.spacing(0.5),
+        '& .MuiButton-root:hover': {
+            backgroundColor: theme.palette.primary.light,
+        },
+        '& .MuiLink-underlineHover': {
+            textDecoration: 'none',
+        }
+    },
+    link: {
+        color: '#000000',
+        borderRadius: '2rem',
+        textTransform: 'capitalize',
+        fontSize: 18,
+    },
+}));
 
-const Footer = () => {
+export default function Footer() {
     const classes = useStyles();
     return (
-        <AppBar position='static' className={classes.root}>
-            <Toolbar>
-                <LocalCafe />
-                <Typography className={classes.text}>
-                    React With Material UI
-                </Typography>
-                <LocalCafe />
+        <AppBar position='static' color='primary' className={classes.root}>
+            <Toolbar component='footer' disableGutters>
+                <Container className={classes.href}>
+                    <Link href='https://github.com/jonoman55/' target="_blank">
+                        <Button
+                            className={classes.link}
+                            component='button'
+                            startIcon={<Copyright />}
+                        >
+                            John Chiappetta {new Date().getFullYear()}
+                        </Button>
+                    </Link>
+                </Container>
             </Toolbar>
         </AppBar>
     );
 }
-
-export default Footer;

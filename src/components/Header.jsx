@@ -1,30 +1,42 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, makeStyles } from '@material-ui/core';
-import { LocalCafe } from '@material-ui/icons';
+import { makeStyles, AppBar, Toolbar, Typography } from '@material-ui/core';
+import Pokeball from './svg/pokeball';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         textAlign: 'center',
-        backgroundColor: '#424242'
+        cursor: 'default',
+        padding: theme.spacing(2),
+        '& .MuiToolbar-root': {
+            display: 'flex',
+            position: 'relative',
+            alignItems: 'center',
+            flexDirection: 'column',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+        },
     },
     text: {
         flex: 1,
+        fontSize: '2rem',
+        fontWeight: 500,
         paddingLeft: '25px',
         paddingRight: '25px',
-    }
-});
+        color: '#000000',
+    },
+}));
 
+// TODO : Add Link that allows you to refresh the page
 const Header = () => {
     const classes = useStyles();
     return (
-        <AppBar position='static' className={classes.root}>
-            <Toolbar>
-                <LocalCafe />
+        <AppBar className={classes.root} position='static' color='primary'>
+            <Toolbar component='header' disableGutters>
+                <Pokeball />
                 <Typography className={classes.text}>
-                    React With Material UI
+                    Welcome To The Online Pokédex
                 </Typography>
-                <LocalCafe />
             </Toolbar>
         </AppBar>
     );
