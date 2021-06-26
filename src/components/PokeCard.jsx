@@ -207,7 +207,7 @@ export default function PokeCard(props) {
                     </Button>
                 </Box>
                 <Box className={classes.types} component='div'>
-                    {types.length > 0 && types.map(t => (
+                    {types.length > 0 && types.map((t) => (
                         <TypeBadge key={t} text={t} color={getTypeStyle(t)} />
                     ))}
                 </Box>
