@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormControl, InputLabel, MenuItem, Select as MuiSelect } from '@material-ui/core';
 
-// TODO : Finish implementing this
+// TODO : Finish implementing this - needs to by dynamic
 export default function GenSelect(props) {
     const { name, label, value, onChange, options } = props;
     return (
