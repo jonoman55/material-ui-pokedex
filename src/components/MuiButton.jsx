@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
             padding: '2px',
         },
         '& .MuiButton-startIcon': {
-            left: '0',
+            marginLeft: '0',
         },
     },
 }));
