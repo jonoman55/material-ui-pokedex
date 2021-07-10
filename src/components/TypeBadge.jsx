@@ -15,7 +15,7 @@ export default function TypeButton({ text, color }) {
                 background: color ? color : '#bcbcbc',
                 borderRadius: '3rem',
                 border: 0,
-                color: '#000000',
+                color: '#fff',
                 cursor: 'default',
                 height: '2rem',
                 padding: '0 30px',

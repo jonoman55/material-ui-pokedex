@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, AppBar, Toolbar, Typography } from '@material-ui/core';
+import { makeStyles, AppBar, Toolbar, Link, Tooltip } from '@material-ui/core';
 import Pokeball from './svg/pokeball';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,23 +23,27 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 500,
         paddingLeft: '25px',
         paddingRight: '25px',
-        color: '#000000',
+        color: theme.palette.black.main,
+        '&:hover': {
+            color: theme.palette.black.main,
+            textDecoration: 'none',
+            fontWeight: 600,
+        },
     },
 }));
 
-// TODO : Add Link that allows you to refresh the page
-const Header = () => {
+export default function Header() {
     const classes = useStyles();
     return (
         <AppBar className={classes.root} position='static' color='primary'>
             <Toolbar component='header' disableGutters>
                 <Pokeball />
-                <Typography className={classes.text}>
-                    Welcome To The Online Pokédex
-                </Typography>
+                <Tooltip title='Home'>
+                    <Link className={classes.text} href='/'>
+                        Welcome To The Online Pokédex
+                    </Link>
+                </Tooltip>
             </Toolbar>
         </AppBar>
     );
 }
-
-export default Header;

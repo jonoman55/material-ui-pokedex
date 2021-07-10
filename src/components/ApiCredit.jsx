@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, AppBar, Toolbar, Button, Link, Container } from '@material-ui/core';
+import { makeStyles, AppBar, Button, Container, Toolbar, Link } from '@material-ui/core';
 import { Gamepad } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -11,9 +11,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.default,
     },
     container: {
-        align: "center",
         display: 'flex',
         justifyContent: 'center',
+        alignItems: "center",
         width: '100%',
         padding: theme.spacing(0.5),
         '& .MuiButton-root:hover': {
@@ -29,8 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-// TODO : Add some additional styling to make it look better
-const ApiCredit = () => {
+export default function ApiCredit() {
     const classes = useStyles();
     return (
         <AppBar className={classes.root} position='static'>
@@ -51,5 +50,3 @@ const ApiCredit = () => {
         </AppBar>
     );
 }
-
-export default ApiCredit;

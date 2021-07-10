@@ -1,27 +1,24 @@
 import React from 'react';
-import { makeStyles, Avatar, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Typography, IconButton } from '@material-ui/core';
+import { makeStyles, Avatar, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Divider, Typography, IconButton } from '@material-ui/core';
 import { Clear, Error, Pageview } from '@material-ui/icons';
-import { ClearButton } from './index';
+import { MuiButton as ClearButton } from './index';
 import pokeball from '../../src/images/pokeball.gif';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: 'flex',
         flexDirection: 'column',
         flexWrap: 'wrap',
         alignItems: 'center',
         alignContent: 'center',
-        borderColor: theme.palette.secondary.dark,
         borderRadius: '1rem',
         border: 'solid',
         borderWidth: '2px',
+        borderColor: theme.palette.secondary.dark,
         backgroundColor: theme.palette.secondary.light,
         '& .MuiCardContent-root': {
-            display: 'flex',
             width: '100%',
             flexDirection: 'column',
             flexWrap: 'wrap',
-            padding: theme.spacing(2),
         },
         '& .MuiCardActions-spacing > :not(:first-child)': {
             marginLeft: '24px',
@@ -31,22 +28,18 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     content: {
-        display: 'block',
-        flex: '1 0 auto',
         '& .MuiCardActionArea-focusHighlight': {
             backgroundColor: theme.palette.background.default,
         },
     },
     header: {
         '& .MuiCardHeader-avatar': {
-            flex: '0 0 auto',
             marginLeft: '-12px',
             marginTop: '-12px',
         },
     },
     avatar: {
         display: 'flex',
-        flex: '0 0 auto',
         marginRight: '0px',
         position: 'static',
         width: '50px',
@@ -69,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     },
     image: {
         maxHeight: '38vh',
-        maxWidth: '78vw', 
+        maxWidth: '78vw',
         objectFit: 'cover',
         textTransform: 'capitalize',
         cursor: 'default',
@@ -80,9 +73,9 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         display: 'flex',
-        padding: '8px',
         alignItems: 'center',
-        paddingBottom: '10px',
+        padding: theme.spacing(1),
+        marginBottom: '10px',
         '& .MuiTypography-displayBlock': {
             display: 'flex',
             textAlign: 'center',
@@ -93,7 +86,6 @@ const useStyles = makeStyles((theme) => ({
         },
         '& .MuiCardHeader-content': {
             display: 'flex',
-            flex: '1 1 auto',
             flexDirection: 'column',
             flexWrap: 'wrap',
             alignContent: 'center',
@@ -102,7 +94,6 @@ const useStyles = makeStyles((theme) => ({
             marginRight: '10px'
         },
         '& .MuiCardHeader-action': {
-            flex: '0 0 auto',
             alignSelf: 'baseline',
             marginTop: '-2.5px',
             marginRight: '-12px',
@@ -111,15 +102,16 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     text: {
+        margin: theme.spacing(2),
+        padding: theme.spacing(1),
         display: 'flex',
-        marginTop: '2rem',
-        alignItems: 'center',
-        flexDirection: 'row',
+        alignItems: 'stretch',
+        flexDirection: 'column',
         flexWrap: 'wrap',
         alignContent: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
+        justifyItems: 'center',
         fontWeight: 500,
-        fontSize: '1rem',
         textAlign: 'center',
     },
     btnContainer: {
@@ -129,11 +121,10 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
         alignContent: 'center',
         justifyContent: 'center',
-        marginBottom: '10px',
+        marginBottom: '15px',
     },
     errorContainer: {
         display: 'flex',
-        flex: '0 0 auto',
         width: '100%',
         height: '100%',
         cursor: 'default',
@@ -147,8 +138,21 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.primary.main,
         borderColor: theme.palette.black.main,
     },
+    divider2: {
+        marginRight: '10px',
+        marginLeft: '10px',
+        backgroundColor: theme.palette.secondary.dark,
+    },
+    divider1: {
+        marginTop: '2rem',
+        marginBottom: '10px',
+        marginRight: '10px',
+        marginLeft: '10px',
+        backgroundColor: theme.palette.secondary.dark,
+    },
 }));
 
+// TODO : Go through styling and remove any unnecessary code
 export default function NoResultsCard({ onClick }) {
     const classes = useStyles();
     return (
@@ -176,9 +180,11 @@ export default function NoResultsCard({ onClick }) {
                         alt='Nothing Found'
                     />
                 </CardActionArea>
+                <Divider className={classes.divider1} />
                 <Typography className={classes.text} component='p'>
                     No Pokémon Found! Clear your search and try again! 😀
                 </Typography>
+                <Divider className={classes.divider2} />
             </CardContent>
             <CardActions className={classes.btnContainer} component='div'>
                 <ClearButton

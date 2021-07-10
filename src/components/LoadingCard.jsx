@@ -1,10 +1,11 @@
 import React from 'react';
-import { makeStyles, Avatar, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Typography, IconButton } from '@material-ui/core';
-import {  Error, RotateLeft } from '@material-ui/icons';
+import { makeStyles, Avatar, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Typography, IconButton, Divider } from '@material-ui/core';
+import { Error, RotateLeft } from '@material-ui/icons';
 import spinner from '../images/spinner.gif';
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         flexWrap: 'wrap',
@@ -30,8 +31,6 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     content: {
-        display: 'block',
-        flex: '1 0 auto',
         cursor: 'default',
         '& .MuiCardActionArea-focusHighlight': {
             backgroundColor: theme.palette.secondary.light,
@@ -95,9 +94,9 @@ const useStyles = makeStyles((theme) => ({
             alignContent: 'center',
             justifyContent: 'center',
             alignItems: 'center',
-            marginRight: '40px'
+            marginRight: '20px',
         },
-        '& .MuiCardHeader-action': { 
+        '& .MuiCardHeader-action': {
             height: '30px',
             width: '30px',
         },
@@ -116,12 +115,12 @@ const useStyles = makeStyles((theme) => ({
     },
     btnContainer: {
         display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'row',
+        flexDirection: 'column',
         flexWrap: 'wrap',
+        alignItems: 'stretch',
         alignContent: 'center',
         justifyContent: 'center',
-        margin: theme.spacing(3),
+        margin: theme.spacing(2),
     },
     errorContainer: {
         display: 'flex',
@@ -153,6 +152,10 @@ const useStyles = makeStyles((theme) => ({
         display: 'block',
         cursor: 'default',
     },
+    divider: {
+        margin: '15px',
+        backgroundColor: theme.palette.secondary.dark,
+    },
 }));
 
 export default function LoadingCard() {
@@ -169,7 +172,7 @@ export default function LoadingCard() {
                         </Avatar>
                     }
                     action={
-                        <IconButton className={classes.errorContainer} disableRipple> 
+                        <IconButton className={classes.errorContainer} disableRipple>
                             <Error className={classes.error} />
                         </IconButton>
                     }
@@ -184,9 +187,11 @@ export default function LoadingCard() {
                 </CardActionArea>
             </CardContent>
             <CardActions className={classes.btnContainer} component='div'>
+                <Divider className={classes.divider} />
                 <Typography className={classes.text} component='p'>
                     Please wait while we load the Pokémon! 😀
                 </Typography>
+                <Divider className={classes.divider} />
             </CardActions>
         </Card>
     );

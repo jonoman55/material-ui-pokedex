@@ -27,8 +27,8 @@ export default function ScrollToTop({ showBelow }) {
 
     useEffect(() => {
         if (showBelow) {
-            window.addEventListener(`scroll`, handleScroll);
-            return () => window.removeEventListener(`scroll`, handleScroll);
+            window.addEventListener('scroll', handleScroll);
+            return () => window.removeEventListener('scroll', handleScroll);
         };
     });
 
@@ -41,16 +41,16 @@ export default function ScrollToTop({ showBelow }) {
     };
 
     const handleClick = () => {
-        window[`scrollTo`]({ top: 0, behavior: `smooth` });
+        window['scrollTo']({ top: 0, behavior: 'smooth' });
     };
 
     return (
         <Box component='div'>
-            {show &&
+            {show && (
                 <IconButton className={classes.toTop} onClick={handleClick}>
                     <ExpandLess />
                 </IconButton>
-            }
+            )}
         </Box>
     );
 }

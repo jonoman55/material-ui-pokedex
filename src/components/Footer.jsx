@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
         bottom: 0,
         borderTopLeftRadius: '1rem',
         borderTopRightRadius: '1rem',
+        color: theme.palette.primary.main,
     },
     href: {
         display: 'flex',
@@ -32,10 +33,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Footer() {
     const classes = useStyles();
     return (
-        <AppBar position='static' color='primary' className={classes.root}>
+        <AppBar position='static' className={classes.root}>
             <Toolbar component='footer' disableGutters>
                 <Container className={classes.href}>
-                    <Link href='https://github.com/jonoman55/' target="_blank">
+                    <Link href='https://github.com/jonoman55/' target='_blank'>
                         <Button
                             className={classes.link}
                             component='button'

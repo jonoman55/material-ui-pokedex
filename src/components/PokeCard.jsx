@@ -1,7 +1,9 @@
-import React from 'react';
-import { makeStyles, Avatar, Box, Button, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Typography, IconButton } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { makeStyles, Avatar, Box, Button, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Divider, Typography, Tooltip, IconButton } from '@material-ui/core';
 import { Star, Info } from '@material-ui/icons';
 import { TypeBadge } from './index';
+import { getData } from '../api/PokemonService';
+import { formatDesc, isEnglish, formatID } from '../helpers/text';
 import getTypeStyle from '../styles/typeStyles';
 
 const useStyles = makeStyles((theme) => ({
@@ -9,9 +11,9 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        alignItems: 'stretch',
+        alignItems: 'center',
         alignContent: 'space-between',
-        height: '40rem', // Needed to make the cards the same height
+        justifyContent: 'center',
         borderColor: theme.palette.secondary.dark,
         borderRadius: '1rem',
         border: 'solid',
@@ -19,9 +21,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.secondary.light,
         '& .MuiCardContent-root': {
             paddingTop: '8px',
-            paddingBottom: '16px',
-            paddingRight: '16px',
-            paddingLeft: '16px',
+            paddingBottom: theme.spacing(2),
+            paddingRight: theme.spacing(2),
+            paddingLeft: theme.spacing(2),
         },
         '& .MuiCardActions-spacing > :not(:first-child)': {
             marginLeft: '24px',
@@ -31,21 +33,17 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     content: {
-        display: 'block',
-        flex: '1 0 auto',
         '& .MuiCardActionArea-focusHighlight': {
             backgroundColor: theme.palette.background.default,
         },
     },
     header: {
         '& .MuiCardHeader-avatar': {
-            flex: '0 0 auto',
             marginLeft: '-8px',
         },
     },
     avatar: {
         display: 'flex',
-        flex: '0 0 auto',
         marginRight: '0px',
         position: 'static',
         width: '50px',
@@ -86,14 +84,18 @@ const useStyles = makeStyles((theme) => ({
         '& .MuiTypography-displayBlock': {
             display: 'flex',
             textAlign: 'center',
-            fontSize: '1.5rem',
+            fontSize: '1.25rem',
             fontWeight: 700,
             flexDirection: 'column',
             textTransform: 'uppercase'
         },
+        '& .MuiTypography-colorTextSecondary': {
+            color: theme.palette.secondary.main,
+            fontSize: '1rem',
+            marginRight: '10px'
+        },
         '& .MuiCardHeader-content': {
             display: 'flex',
-            flex: '1 1 auto',
             flexDirection: 'column',
             flexWrap: 'wrap',
             alignContent: 'center',
@@ -102,7 +104,6 @@ const useStyles = makeStyles((theme) => ({
             marginRight: '10px'
         },
         '& .MuiCardHeader-action': {
-            flex: '0 0 auto',
             alignSelf: 'baseline',
             marginTop: '-2.5px',
             marginRight: '-12px',
@@ -112,13 +113,11 @@ const useStyles = makeStyles((theme) => ({
     },
     text: {
         display: 'flex',
-        marginTop: '2rem',
-        alignItems: 'stretch',
-        flexDirection: 'column',
-        flexWrap: 'wrap',
-        alignContent: 'space-between',
-        justifyContent: 'space-evenly',
+        padding: theme.spacing(1),
+        margin: theme.spacing(2),
+        fontSize: '1rem',
         fontWeight: 500,
+        minHeight: '5.5rem', // fixes card height issue
     },
     btnContainer: {
         display: 'flex',
@@ -127,6 +126,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         justifyContent: 'space-between',
         alignItems: 'flex-end',
+        alignContent: 'center',
     },
     info: {
         display: 'flex',
@@ -158,7 +158,6 @@ const useStyles = makeStyles((theme) => ({
     },
     starContainer: {
         display: 'flex',
-        flex: '0 0 auto',
         width: '100%',
         height: '100%',
         '&:hover': {
@@ -168,21 +167,50 @@ const useStyles = makeStyles((theme) => ({
     star: {
         color: theme.palette.warning.main,
     },
+    divider: {
+        margin: '15px',
+        backgroundColor: theme.palette.secondary.dark,
+    },
 }));
 
-export default function PokeCard(props) {
+// TODO : Fix the memory leak - if still present
+export default function PokeCard({ pokemon, onClick }) {
     const classes = useStyles();
-    const { avatarUrl, name, description, imageUrl, types } = props;
+    const [description, setDescription] = useState('');
+
+    const fetchDescription = async () => {
+        try {
+            const descriptions = await getData(pokemon.species.url);
+            setDescription(descriptions.flavor_text_entries.map((f) => {
+                if (f.language.name === 'en') {
+                    return formatDesc(f.flavor_text);
+                } else return undefined;
+            }).filter(f => !isEnglish(f) && f !== undefined).shift());
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        if (!description) {
+            fetchDescription();
+        }
+        return description;
+    });
+
     return (
         <Card className={classes.root}>
             <CardContent className={classes.header}>
                 <CardHeader
                     className={classes.title}
-                    title={name}
-                    avatar={<Avatar className={classes.avatar} src={avatarUrl} />}
+                    title={`${pokemon.name}`}
+                    subheader={`N.º ${pokemon.id}`}
+                    avatar={<Avatar className={classes.avatar} src={pokemon.sprites.front_default} alt='' />}
                     action={
                         <IconButton className={classes.starContainer} aria-label='favorites'>
-                            <Star className={classes.star} />
+                            <Tooltip title='Add To Favs'>
+                                <Star className={classes.star} />
+                            </Tooltip>
                         </IconButton>
                     }
                 />
@@ -190,26 +218,37 @@ export default function PokeCard(props) {
                     <CardMedia
                         className={classes.image}
                         component='img'
-                        image={imageUrl}
+                        src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${formatID(pokemon.id)}.png`}
+                        alt='Not Found'
                     />
                 </CardActionArea>
+                <Divider className={classes.divider} />
                 <Typography className={classes.text} component='p'>
                     {description}
                 </Typography>
+                <Divider className={classes.divider} />
             </CardContent>
             <CardActions className={classes.btnContainer} component='div'>
                 <Box component='div'>
                     <Button
                         className={classes.info}
                         startIcon={<Info />}
+                        onClick={onClick}
                     >
                         See More
                     </Button>
                 </Box>
                 <Box className={classes.types} component='div'>
-                    {types.length > 0 && types.map((t) => (
-                        <TypeBadge key={t} text={t} color={getTypeStyle(t)} />
-                    ))}
+                    {pokemon.types.length > 0 &&
+                        pokemon.types.map((t, id) => (
+                            <TypeBadge
+                                key={id}
+                                text={t.type.name}
+                                color={getTypeStyle(t.type.name)}
+                            >
+                                {t.type.name}
+                            </TypeBadge>
+                        ))}
                 </Box>
             </CardActions>
         </Card>

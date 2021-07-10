@@ -1,44 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { PokeCard, NoResultsCard, LoadingCard } from './index';
 import { makeStyles, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        padding: theme.spacing(2),
-        // minHeight: 'calc(70vh - 1rem)',  // needed to make the footer stay at the bottom
-        display: 'flex',
+        padding: theme.spacing(1),
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
+        justifyItems: 'center',
         alignContent: 'center',
         alignItems: 'center',
-        
     },
     card: {
-        display: 'flex',
+        width: '100%',
+        height: '100%',
     }
 }));
 
-export default function PokeContainer({ pokemonList, isLoading, onClick }) {
+export default function PokeContainer({ pokemons, isLoading, searchOnClick, history }) {
     const classes = useStyles();
-    const [pokemons, setPokemons] = useState([]);
-    
-    useEffect(() => {
-        setPokemons(pokemonList);
-    }, [pokemonList]);
 
     const getPokemonCard = pokemon => {
-        const { id } = pokemon;
         return (
-            <Grid className={classes.card} item key={id} sm={6} md={4}>
-                <PokeCard {...pokemon} />
+            <Grid className={classes.card} item key={pokemon.id} sm={6} md={6} lg={4}>
+                <PokeCard pokemon={pokemon} onClick={() => history.push(`/${pokemon.id}`)} />
             </Grid>
         );
     };
 
-    return (isLoading ? (<Grid className={classes.root} ><LoadingCard /></Grid>) :
-        (<Grid className={classes.root} container item spacing={2} xs sm md>
-            {pokemons.length === 0 ? (<NoResultsCard onClick={onClick} />) : (pokemons.map(pokemon => getPokemonCard(pokemon)))}
-        </Grid>)
+    return (
+        <Grid className={classes.root} container item spacing={2} sm md lg>
+            {isLoading ? (<LoadingCard />) : (pokemons.length === 0 ? <NoResultsCard onClick={searchOnClick} /> : pokemons.map(p => getPokemonCard(p)))}
+        </Grid>
     );
 };

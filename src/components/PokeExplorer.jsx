@@ -1,108 +1,110 @@
-// eslint-disable-next-line 
-import React, { useState, useEffect } from 'react';
-// eslint-disable-next-line 
-import { makeStyles, Grid, Paper, Toolbar, InputAdornment, IconButton, Tooltip } from '@material-ui/core';
-// eslint-disable-next-line 
-import { Clear, Star, Search, Refresh, ArrowDropDown } from '@material-ui/icons';
-import { PokeSearch, ClearButton, GenSelect } from './index';
-import generations from '../constants/generations';
+import React from 'react';
+import { makeStyles, InputAdornment, Box, Card, CardContent, CardHeader, CardActions } from '@material-ui/core';
+import { Clear, Refresh, Search } from '@material-ui/icons';
+import {
+    MuiSearch as SearchBar,
+    MuiButton as ClearButton,
+    MuiSelect as GenSelect,
+    MuiButton as RefreshButton,
+    Favorites
+} from './index';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        flex: 'auto',
-        flexGrow: 1,
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        alignContent: 'center',
+        width: '100%',
+        marginTop: '15px',
+        '& .MuiCardActions-root': {
+            paddingLeft: theme.spacing(1.5),
+            paddingRight: theme.spacing(1.5),
+        },
+    },
+    card: {
+        display: 'flex',
+        width: '100%',
         flexDirection: 'column',
         flexWrap: 'wrap',
         alignContent: 'center',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        marginTop: '15px',
-        padding: theme.spacing(0.5),
-        borderRadius: '10px',
-        backgroundColor: theme.palette.background.default,
-        '& .MuiGrid-container.MuiGrid-spacing-xs-2': {
-            display: 'flex',
-            width: '100%',
-            margin: 'auto',
-        },
+        backgroundColor: theme.palette.background.paper,
+        border: 'solid',
+        borderWidth: '1px',
+        borderRadius: '1rem',
+        borderColor: theme.palette.secondary.light,
     },
-    gird: {
-        display: 'flex',
-        width: '100%',
-    },
-    genSelect: {
+    boxItem: {
         display: 'flex',
         width: '100%',
         flexDirection: 'row',
-        flexWrap: 'wrap',
+        flexWrap: 'nowrap',
         justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
+        padding: theme.spacing(0.5),
+        margin: theme.spacing(0.5),
     },
-    fav: {
-        color: theme.palette.warning.main,
-    },
-    searchBar: {
+    favsItem: {
         display: 'flex',
+        width: '100%',
         flexDirection: 'row',
-        flexWrap: 'nowrap',
-        justifyContent: 'space-between',
+        flexWrap: 'warp',
+        justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
+        padding: theme.spacing(2),
+        margin: theme.spacing(2),
     },
-    searchInput: {
-        width: '100%'
+    favIco: {
+        color: theme.palette.warning.main,
     },
-    refresh: {
-        display: 'flex',
+    title: {
+        color: theme.palette.black.main,
     },
 }));
 
-// TODO : Finish implementing the gen selector and touch ups to css and layout in general
 // TODO : Add a favorites section or a sidebar that contains the pokemon favorites list
-export default function PokeExplorer({ input, onChange, onClick }) {
+export default function PokeExplorer({ input, onStartSearch, onSearchClick, genValue, genOptions, onGenSelect, onRefreshClick }) {
     const classes = useStyles();
-    const [gen, setGen] = useState(0);
-
-    // eslint-disable-next-line 
-    const handleChange = e => {
-        let { value } = e.target;
-        setGen(value);
-    };
-
     return (
-        <Paper className={classes.root} position='static' elevation={2}>
-            <Toolbar disableGutters>
-                <Grid className={classes.grid} container spacing={2} xs sm md>
-                    <Grid className={classes.genSelect} container item spacing={2}>
-                        <Grid item>
+        <Box className={classes.root} component='div'>
+            <Card className={classes.card}>
+                <CardContent>
+                    <CardHeader className={classes.title} title='PokéExplorer' />
+                </CardContent>
+                <CardActions>
+                    <Box component='div'>
+                        <Box className={classes.favsItem} component='div'>
+                            <Favorites />
+                        </Box>
+                        <Box className={classes.boxItem} component='div'>
                             <GenSelect
-                                name='Select Gen'
-                                value={gen ? gen : 0}
-                                options={generations}
-                                onChange={onChange}
+                                name='GenSelect'
+                                label='Select Generation'
+                                value={genValue}
+                                options={genOptions}
+                                onChange={onGenSelect}
                             />
-                        </Grid>
-                        <Grid className={classes.refresh} item>
-                            <Tooltip title="Refresh">
-                                <IconButton aria-label='refresh'>
-                                    <Refresh />
-                                </IconButton>
-                            </Tooltip>
-                        </Grid>
-                    </Grid>
-                    <Grid item>
-                        <Star className={classes.fav} />
-                    </Grid>
-                    <Grid className={classes.searchBar} container item spacing={2}>
-                        <Grid item>
-                            <PokeSearch
+                            <RefreshButton
+                                text='Refresh'
+                                variant='contained'
+                                color='primary'
+                                onClick={onRefreshClick}
+                                startIcon={<Refresh />}
+                            />
+                        </Box>
+                        <Box className={classes.boxItem} component='div'>
+                            <SearchBar
                                 placeholder='Search Pokémon'
                                 label={input ? 'Search Pokémon' : ''}
                                 value={input}
                                 variant='outlined'
-                                onChange={(e) => onChange(e.target.value)}
+                                autoComplete='off'
+                                type='text'
+                                onChange={(event) => onStartSearch(event.target.value)}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
@@ -111,19 +113,17 @@ export default function PokeExplorer({ input, onChange, onClick }) {
                                     )
                                 }}
                             />
-                        </Grid>
-                        <Grid item>
                             <ClearButton
                                 text='Clear'
                                 variant='contained'
                                 color='primary'
-                                onClick={onClick}
+                                onClick={onSearchClick}
                                 startIcon={<Clear />}
                             />
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Toolbar>
-        </Paper>
+                        </Box>
+                    </Box>
+                </CardActions>
+            </Card>
+        </Box>
     );
 }

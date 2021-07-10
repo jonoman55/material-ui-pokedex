@@ -3,12 +3,12 @@ import { makeStyles, TextField } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: 'flex',
-        color: theme.palette.black.main,
+        margin: theme.spacing(0.5),
+        width: '100%',
     },
 }));
 
-export default function PokeSearch(props) {
+export default function MuiSearch(props) {
     const classes = useStyles();
     const { name, label, value, variant, onChange, ...other } = props;
     return (
