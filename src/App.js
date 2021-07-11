@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
-// eslint-disable-next-line
 import { Home, Pokedex, Pokemon } from './components/index';
 import muiTheme from './theme/muiTheme';
 
