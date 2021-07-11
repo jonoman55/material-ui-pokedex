@@ -178,25 +178,24 @@ export default function PokeCard({ pokemon, onClick }) {
     const classes = useStyles();
     const [description, setDescription] = useState('');
 
-    const fetchDescription = async () => {
-        try {
-            const descriptions = await getData(pokemon.species.url);
-            setDescription(descriptions.flavor_text_entries.map((f) => {
-                if (f.language.name === 'en') {
-                    return formatDesc(f.flavor_text);
-                } else return undefined;
-            }).filter(f => !isEnglish(f) && f !== undefined).shift());
-        } catch (error) {
-            console.log(error);
-        }
+    const fetchDesc = async () => {
+        const res = await getData(pokemon.species.url);
+        const data = res;
+        return data.flavor_text_entries.map((f) => {
+            if (f.language.name === 'en') {
+                return formatDesc(f.flavor_text);
+            } else return undefined;
+        }).filter(f => !isEnglish(f) && f !== undefined).shift();
     };
 
     useEffect(() => {
-        if (!description) {
-            fetchDescription();
-        }
-        return description;
-    });
+        const getDesc = async () => {
+            const desc = await fetchDesc();
+            setDescription(desc);
+        };
+        getDesc();
+        // eslint-disable-next-line 
+    }, []);
 
     return (
         <Card className={classes.root}>

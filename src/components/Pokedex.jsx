@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles, Grid, Box } from '@material-ui/core';
-import { Header, ApiCredit, PokeExplorer, PokeContainer, StartCard, Footer, ScrollToTop } from './index';
+import { Header, ApiCredit, PokeExplorer, PokeContainer, HomeCard, Footer, ScrollToTop } from './index';
 import { formatGen, sanitizeGen } from '../helpers/text';
 import { getPokemon, getData } from '../api/PokemonService';
 import { getGeneration } from '../api/PokemonCounts';
@@ -64,10 +64,12 @@ const Pokedex = (props) => {
     };
 
     useEffect(() => {
-        if (genNumber === 8) {
-            fetchGens();
-        }
-    });
+        // if (genNumber === 8) {
+        //     fetchGens();
+        // }
+        fetchGens();
+        // eslint-disable-next-line
+    }, []);
 
     const fetchPokemon = async () => {
         try {
@@ -139,7 +141,7 @@ const Pokedex = (props) => {
                     </Grid>
                     <Grid className={classes.items} container item spacing={2}>
                         <Grid item>
-                            {genValue === '' ? (<StartCard />) : (
+                            {genValue === '' ? (<HomeCard />) : (
                                 <PokeContainer
                                     pokemons={filteredPokeList}
                                     isLoading={isLoading}

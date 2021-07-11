@@ -14,7 +14,7 @@ export { default as Footer } from './Footer';
 export { default as MuiButton } from './MuiButton';
 export { default as MuiSelect } from './MuiSelect';
 export { default as MuiSearch } from './MuiSearch';
-export { default as StartCard } from './StartCard';
+export { default as HomeCard } from './HomeCard';
 export { default as PokeCard } from './PokeCard';
 export { default as NoResultsCard } from './NoResultsCard';
 export { default as LoadingCard } from './LoadingCard';

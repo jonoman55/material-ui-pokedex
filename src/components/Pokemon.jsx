@@ -4,7 +4,7 @@ import { Typography, Link, CircularProgress, Button } from "@material-ui/core";
 import { toFirstCharUppercase } from '../helpers/text';
 import axios from "axios";
 
-// TODO : Refactor this code 
+// TODO : Refactor this code - make it into a popup modal instead of being pushed to browser history
 const Pokemon = (props) => {
     const { match, history } = props;
     const { params } = match;
@@ -58,8 +58,8 @@ const Pokemon = (props) => {
             {pokemon === false && <Typography> Pokemon not found</Typography>}
 
             {pokemon !== undefined && (
-                <Button variant="contained" onClick={() => history.push("/")}>
-                    back to pokedex
+                <Button variant="contained" onClick={() => history.goBack()}>
+                    Back To Pokedex
                 </Button>
             )}
         </>

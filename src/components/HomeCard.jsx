@@ -1,6 +1,8 @@
 import React from 'react';
-import { makeStyles, Avatar, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Divider, Typography, IconButton } from '@material-ui/core';
+import { useLocation } from 'react-router';
+import { makeStyles, Avatar, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Divider, Link, Typography, IconButton, Box } from '@material-ui/core';
 import { Language, VideogameAsset } from '@material-ui/icons';
+import { MuiButton as GoButton } from './index';
 import pokemon from '../../src/images/pokemon2.png';
 
 const useStyles = makeStyles((theme) => ({
@@ -9,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         flexWrap: 'wrap',
         alignItems: 'center',
-        alignContent: 'center',     
+        alignContent: 'center',
     },
     card: {
         borderRadius: '1rem',
@@ -110,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         flexWrap: 'wrap',
         alignContent: 'center',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         justifyItems: 'center',
         fontWeight: 500,
         textAlign: 'center',
@@ -133,11 +135,21 @@ const useStyles = makeStyles((theme) => ({
         margin: '15px',
         backgroundColor: theme.palette.secondary.dark,
     },
+    link: {
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignContent: 'center',
+        justifyContent: 'center',
+        justifyItems: 'center',
+    },
 }));
 
-// TODO : Go through styling and remove any unnecessary code
+// TODO : Fix the go to pokedex button styles - replace it with MuiButton component
 export default function HomeCard() {
     const classes = useStyles();
+    const location = useLocation();
     return (
         <div className={classes.root}>
             <Card className={classes.card}>
@@ -170,6 +182,13 @@ export default function HomeCard() {
                     <Typography className={classes.text} component='p'>
                         Search for your favorite Pokémon and add them to your Favorites! ⭐
                     </Typography>
+                    {location.pathname === '/' && (
+                        <Box className={classes.link} component='div'>
+                            <Link style={{ textDecoration: 'none' }} href='/pokedex'>
+                                <GoButton variant='contained' color='primary' text='Go To Pokédex' />
+                            </Link>
+                        </Box>
+                    )}
                     <Divider className={classes.divider} />
                 </CardActions>
             </Card>

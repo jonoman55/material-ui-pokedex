@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
             color: theme.palette.primary.main,
             backgroundColor: theme.palette.secondary.main,
             transition: '0.3s',
+            textDecoration: 'none',
         },
         '& .MuiButton-label': {
             margin: '2px',

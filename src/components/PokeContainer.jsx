@@ -24,7 +24,7 @@ export default function PokeContainer({ pokemons, isLoading, searchOnClick, hist
     const getPokemonCard = pokemon => {
         return (
             <Grid className={classes.card} item key={pokemon.id} sm={6} md={6} lg={4}>
-                <PokeCard pokemon={pokemon} onClick={() => history.push(`/${pokemon.id}`)} />
+                <PokeCard pokemon={pokemon} onClick={() => history.push(`/pokedex/${pokemon.id}`)} />
             </Grid>
         );
     };
