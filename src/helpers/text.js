@@ -13,7 +13,7 @@ export function formatGen(str) {
 };
 
 // Removes any gen entries that equate to NaN
-export function sanitizeGen(x) {
+export function sanitizeGenNum(x) {
     if (isNaN(x)) {
         return 0;
     }
@@ -25,7 +25,8 @@ export function sanitizeGen(x) {
 export function formatDesc(desc) {
     if (desc !== undefined) {
         desc = desc.replace(/[\r\n\f]/g, ' ');
-        return desc = desc.replace(/\u00AD/g, '');
+        desc = desc.replace(/\u00AD/g, '');
+        return desc;
     }
     return desc;
 };
@@ -44,7 +45,7 @@ export function formatName(str) {
 };
 
 // Appends necessary 0's to the pokemon's id for the img url
-export function formatID(id) {
+export function formatId(id) {
     let result = id.toString();
     if (result.length === 1) {
         result = `00${id}`;

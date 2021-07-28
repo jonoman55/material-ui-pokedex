@@ -4,7 +4,7 @@ import { makeStyles, Button } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
         margin: theme.spacing(0.5),
-    }
+    },
 }));
 
 export default function TypeButton({ text, color }) {

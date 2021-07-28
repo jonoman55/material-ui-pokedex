@@ -1,8 +1,6 @@
-import React from 'react';
-import { useLocation } from 'react-router';
-import { makeStyles, Avatar, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Divider, Link, Typography, IconButton, Box } from '@material-ui/core';
+import { makeStyles, Avatar, Box, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Divider, Typography, IconButton } from '@material-ui/core';
 import { Language, VideogameAsset } from '@material-ui/icons';
-import { MuiButton as GoButton } from './index';
+import { MuiButton as GoToButton } from './index';
 import pokemon from '../../src/images/pokemon2.png';
 
 const useStyles = makeStyles((theme) => ({
@@ -12,23 +10,24 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
         alignItems: 'center',
         alignContent: 'center',
+        marginBottom: theme.spacing(1),
     },
     card: {
         borderRadius: '1rem',
         border: 'solid',
-        borderWidth: '2px',
-        backgroundColor: theme.palette.secondary.light,
+        borderWidth: '1px',
+        borderColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.light,
     },
     content: {
         display: 'block',
-        flex: '1 0 auto',
-        '& .MuiCardActionArea-focusHighlight': {
-            backgroundColor: theme.palette.secondary.dark,
-        },
         '& .MuiCardHeader-avatar': {
             flex: '0 0 auto',
             marginLeft: '-12px',
             marginTop: '-12px',
+        },
+        '& .MuiCardActionArea-focusHighlight': {
+            backgroundColor: 'inherit',
         },
     },
     title: {
@@ -36,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '8px',
         alignItems: 'center',
         paddingBottom: '10px',
+        color: theme.palette.primary.contrastText,
         '& .MuiTypography-displayBlock': {
             display: 'flex',
             textAlign: 'center',
@@ -74,11 +74,11 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '1rem',
         borderWidth: '1px',
         border: 'solid',
-        borderColor: theme.palette.secondary.dark,
-        backgroundColor: theme.palette.background.default,
+        borderColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.main,
         '& .MuiAvatar-img': {
             display: 'flex',
-            color: theme.palette.secondary.main,
+            color: theme.palette.primary.main,
             width: '100%',
             height: '100%',
             objectFit: 'contain',
@@ -90,11 +90,11 @@ const useStyles = makeStyles((theme) => ({
         objectFit: 'cover',
         textTransform: 'capitalize',
         cursor: 'default',
-        borderColor: theme.palette.secondary.dark,
+        borderColor: theme.palette.primary.main,
         borderRadius: '1rem',
         border: 'solid',
         borderWidth: '1px',
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.palette.primary.main,
     },
     textContainer: {
         display: 'flex',
@@ -104,6 +104,7 @@ const useStyles = makeStyles((theme) => ({
         alignContent: 'stretch',
         justifyContent: 'center',
         justifyItems: 'center',
+        marginBottom: '15px',
     },
     text: {
         display: 'flex',
@@ -116,6 +117,7 @@ const useStyles = makeStyles((theme) => ({
         justifyItems: 'center',
         fontWeight: 500,
         textAlign: 'center',
+        color: theme.palette.primary.contrastText,
     },
     iconContainer: {
         display: 'flex',
@@ -126,16 +128,16 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: 'transparent',
         },
     },
-    icon: {
+    globeIcon: {
         height: '32px',
         width: '32px',
-        color: theme.palette.black.main,
+        color: theme.palette.primary.pokeRed,
     },
     divider: {
         margin: '15px',
-        backgroundColor: theme.palette.secondary.dark,
+        backgroundColor: theme.palette.primary.contrastText,
     },
-    link: {
+    btn: {
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
@@ -144,14 +146,18 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         justifyItems: 'center',
     },
+    lightIcon: {
+        color: theme.palette.primary.pokeRed,
+    },
+    darkIcon: {
+        color: theme.palette.black.main,
+    }
 }));
 
-// TODO : Fix the go to pokedex button styles - replace it with MuiButton component
-export default function HomeCard() {
+export default function HomeCard({ theme }) {
     const classes = useStyles();
-    const location = useLocation();
     return (
-        <div className={classes.root}>
+        <Box className={classes.root} component='div'>
             <Card className={classes.card}>
                 <CardContent className={classes.content}>
                     <CardHeader
@@ -159,12 +165,12 @@ export default function HomeCard() {
                         title='Welcome to the Online Pokédex'
                         avatar={
                             <Avatar className={classes.avatar}>
-                                <VideogameAsset />
+                                <VideogameAsset className={theme ? classes.darkIcon : classes.lightIcon} />
                             </Avatar>
                         }
                         action={
                             <IconButton className={classes.iconContainer} disableRipple>
-                                <Language className={classes.icon} />
+                                <Language className={classes.globeIcon} />
                             </IconButton>
                         }
                     />
@@ -182,16 +188,12 @@ export default function HomeCard() {
                     <Typography className={classes.text} component='p'>
                         Search for your favorite Pokémon and add them to your Favorites! ⭐
                     </Typography>
-                    {location.pathname === '/' && (
-                        <Box className={classes.link} component='div'>
-                            <Link style={{ textDecoration: 'none' }} href='/pokedex'>
-                                <GoButton variant='contained' color='primary' text='Go To Pokédex' />
-                            </Link>
+                        <Box className={classes.btn} component='div' onClick={() => window['scrollTo']({ top: 250, behavior: 'smooth' })}>
+                            <GoToButton variant='contained' color='primary' text='Go To PokéExplorer' style={{ width: 'auto', textTransform:'none', fontSize: '1rem' }} />
                         </Box>
-                    )}
                     <Divider className={classes.divider} />
                 </CardActions>
             </Card>
-        </div>
+        </Box>
     );
-}
+};

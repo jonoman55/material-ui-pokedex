@@ -1,20 +1,25 @@
-import React from 'react';
-import { Route, Switch } from "react-router-dom";
-import { CssBaseline, ThemeProvider } from '@material-ui/core';
-import { Home, Pokedex, Pokemon } from './components/index';
-import muiTheme from './theme/muiTheme';
+import React, { useState } from 'react';
+import { Router, Route, Switch } from "react-router-dom";
+import { createBrowserHistory } from 'history';
+import { createTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
+import { Pokedex, Pokemon } from './components/index';
+import { light, dark } from './theme/muiTheme';
 
-// TODO : Install Redux and add reducer, state store, and history 
-// TODO : Finish implementing the Home page and proper routing that includes genId
+// TODO : Finish implementing theme
+// TODO : Remove browser router and create popup modals for each pokemon instead
+const history = createBrowserHistory();
 export default function App() {
+    const [theme, setTheme] = useState(true);
+    const appliedTheme = createTheme(theme ? light : dark);
     return (
-        <ThemeProvider theme={muiTheme}>
+        <ThemeProvider theme={appliedTheme}>
             <CssBaseline />
-            <Switch>
-                <Route exact path='/' render={Home} />
-                <Route exact path='/pokedex' render={(props) => <Pokedex {...props} />} />
-                <Route exact path='/pokedex/:pokemonId' render={(props) => <Pokemon {...props} />} />
-            </Switch>
+            <Router history={history} forceRefresh={true}>
+                <Switch>
+                    <Route exact path='/'><Pokedex theme={theme} handleThemeChange={() => setTheme(!theme)} history={history} /></Route>
+                    <Route exact path='/:id' component={Pokemon} />
+                </Switch>
+            </Router>
         </ThemeProvider>
     );
-}
+};

@@ -12,7 +12,7 @@ const counts = {
     total: 807
 };
 
-export function getGeneration(gen) {
+export function getGenData(gen) {
     switch (gen) {
         case 0:
             return gen = { id: 0, offset: counts.zero, limit: counts.total, msg: 'All Generations' }; // ID 0 for All Gens
@@ -36,5 +36,5 @@ export function getGeneration(gen) {
             return gen = { id: 9, offset: counts.zero, limit: 24, msg: 'Select Generation' }; // Custom ID for testing in new UI
         default:
             return gen = { id: 8, offset: counts.zero, limit: counts.gen1, msg: 'Select Generation' }; // Duplicate of 8
-    }
+    };
 };

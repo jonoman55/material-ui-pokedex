@@ -1,5 +1,5 @@
-import axios from "axios";
-import { handleError, handleResponse } from "./ApiUtils";
+import axios from 'axios';
+import { handleError, handleResponse } from './ApiUtils';
 
 const httpRequest = async (method, url, request, headers) => {
     try {
@@ -25,26 +25,26 @@ const get = (url, request, headers) => {
         for (let key in request) {
             cnt++;
             queryString += `${key}=${request[key].toString()}`;
-            if (len > cnt) queryString += "&";
+            if (len > cnt) queryString += '&';
         }
     }
-    return httpRequest("get", `${url}${queryString}`, request, headers);
+    return httpRequest('get', `${url}${queryString}`, request, headers);
 };
 
 const deleteRequest = (url, request, headers) => {
-    return httpRequest("delete", url, request, headers);
+    return httpRequest('delete', url, request, headers);
 };
 
 const post = (url, request, headers) => {
-    return httpRequest("post", url, request, headers);
+    return httpRequest('post', url, request, headers);
 };
 
 const put = (url, request, headers) => {
-    return httpRequest("put", url, request, headers);
+    return httpRequest('put', url, request, headers);
 };
 
 const patch = (url, request, headers) => {
-    return httpRequest("patch", url, request, headers);
+    return httpRequest('patch', url, request, headers);
 };
 
 const Api = {

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles, Avatar, Box, Button, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Divider, Typography, Tooltip, IconButton } from '@material-ui/core';
 import { Star, Info } from '@material-ui/icons';
 import { TypeBadge } from './index';
-import { getData } from '../api/PokemonService';
-import { formatDesc, isEnglish, formatID } from '../helpers/text';
+import { getPokeDesc } from '../api/PokemonService';
+import { formatId } from '../helpers/text';
 import getTypeStyle from '../styles/typeStyles';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,11 +14,11 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         alignContent: 'space-between',
         justifyContent: 'center',
-        borderColor: theme.palette.secondary.dark,
+        borderColor: theme.palette.primary.dark,
         borderRadius: '1rem',
         border: 'solid',
         borderWidth: '2px',
-        backgroundColor: theme.palette.secondary.light,
+        backgroundColor: theme.palette.primary.dark,
         '& .MuiCardContent-root': {
             paddingTop: '8px',
             paddingBottom: theme.spacing(2),
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     },
     content: {
         '& .MuiCardActionArea-focusHighlight': {
-            backgroundColor: theme.palette.background.default,
+            backgroundColor: 'inherit',
         },
     },
     header: {
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '1rem',
         borderWidth: '1px',
         border: 'solid',
-        borderColor: theme.palette.secondary.dark,
+        borderColor: theme.palette.primary.dark,
         backgroundColor: theme.palette.background.default,
         '& .MuiAvatar-img': {
             display: 'flex',
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
         objectFit: 'contain',
         textTransform: 'capitalize',
         cursor: 'default',
-        borderColor: theme.palette.secondary.dark,
+        borderColor: theme.palette.primary.dark,
         borderRadius: '2rem',
         border: 'solid',
         borderWidth: '1px',
@@ -81,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '8px',
         alignItems: 'center',
         paddingBottom: '10px',
+        color: theme.palette.primary.contrastText,
         '& .MuiTypography-displayBlock': {
             display: 'flex',
             textAlign: 'center',
@@ -90,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
             textTransform: 'uppercase'
         },
         '& .MuiTypography-colorTextSecondary': {
-            color: theme.palette.secondary.main,
+            color: theme.palette.primary.light,
             fontSize: '1rem',
             marginRight: '10px'
         },
@@ -118,6 +119,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '1rem',
         fontWeight: 500,
         minHeight: '5.5rem', // fixes card height issue
+        color: theme.palette.primary.contrastText,
     },
     btnContainer: {
         display: 'flex',
@@ -131,11 +133,12 @@ const useStyles = makeStyles((theme) => ({
     info: {
         display: 'flex',
         width: 'max-content',
+        color: theme.palette.primary.contrastText,
         '&:hover': {
-            backgroundColor: theme.palette.secondary.main,
-            color: theme.palette.primary.main,
-            transition: '0.2s',
-            borderRadius: '1.75rem',
+            backgroundColor: theme.palette.primary.pokeRed,
+            color: theme.palette.primary.contrastText,
+            transition: '0.1s',
+            borderRadius: '1.5rem',
             textDecoration: 'none',
         },
         '& .MuiButton-label': {
@@ -161,7 +164,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         height: '100%',
         '&:hover': {
-            backgroundColor: theme.palette.secondary.main,
+            backgroundColor: theme.palette.primary.main,
         },
     },
     star: {
@@ -169,34 +172,28 @@ const useStyles = makeStyles((theme) => ({
     },
     divider: {
         margin: '15px',
-        backgroundColor: theme.palette.secondary.dark,
+        backgroundColor: theme.palette.primary.contrastText,
     },
 }));
 
 // TODO : Fix the memory leak - if still present
-export default function PokeCard({ pokemon, onClick }) {
+// TODO : Figure out a way to pass description down to the PokeCard (will fix memory leak and help performance)
+export default function PokeCard({ pokemon, history }) {
     const classes = useStyles();
     const [description, setDescription] = useState('');
 
-    const fetchDesc = async () => {
-        const res = await getData(pokemon.species.url);
-        const data = res;
-        return data.flavor_text_entries.map((f) => {
-            if (f.language.name === 'en') {
-                return formatDesc(f.flavor_text);
-            } else return undefined;
-        }).filter(f => !isEnglish(f) && f !== undefined).shift();
-    };
-
     useEffect(() => {
-        const getDesc = async () => {
-            const desc = await fetchDesc();
+        async function getDesc() {
+            const desc = await getPokeDesc(pokemon);
             setDescription(desc);
         };
         getDesc();
         // eslint-disable-next-line 
     }, []);
 
+    // TODO : Fix the images for gen 5 and 6 - no dream world .svg images available
+    // New CardContent Image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`
+    // For Gen 5 and 6: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`
     return (
         <Card className={classes.root}>
             <CardContent className={classes.header}>
@@ -217,7 +214,7 @@ export default function PokeCard({ pokemon, onClick }) {
                     <CardMedia
                         className={classes.image}
                         component='img'
-                        src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${formatID(pokemon.id)}.png`}
+                        src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${formatId(pokemon.id)}.png`}
                         alt='Not Found'
                     />
                 </CardActionArea>
@@ -232,7 +229,7 @@ export default function PokeCard({ pokemon, onClick }) {
                     <Button
                         className={classes.info}
                         startIcon={<Info />}
-                        onClick={onClick}
+                        onClick={() => history.push(`/${pokemon.id}`,  { from: "Pokedex" })}
                     >
                         See More
                     </Button>

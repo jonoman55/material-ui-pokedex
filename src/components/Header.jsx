@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         textAlign: 'center',
         cursor: 'default',
+        backgroundColor: theme.palette.primary.pokeRed,
         padding: theme.spacing(2),
         '& .MuiToolbar-root': {
             display: 'flex',
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
             flexDirection: 'column',
             flexWrap: 'wrap',
             justifyContent: 'center',
+            backgroundColor: theme.palette.primary.pokeRed,
         },
     },
     text: {
@@ -25,17 +27,18 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: '25px',
         color: theme.palette.black.main,
         '&:hover': {
-            color: theme.palette.black.main,
+            backgroundColor: 'transparent',
             textDecoration: 'none',
-            fontWeight: 600,
+            color: theme.palette.black.main,
         },
     },
 }));
 
+// TODO : Finish dark/light theme styling
 export default function Header() {
     const classes = useStyles();
     return (
-        <AppBar className={classes.root} position='static' color='primary'>
+        <AppBar className={classes.root} position='static'>
             <Toolbar component='header' disableGutters>
                 <Pokeball />
                 <Tooltip title='Home'>

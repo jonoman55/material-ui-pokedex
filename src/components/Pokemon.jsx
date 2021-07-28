@@ -8,20 +8,20 @@ import axios from "axios";
 const Pokemon = (props) => {
     const { match, history } = props;
     const { params } = match;
-    const { pokemonId } = params;
+    const { id } = params;
     const [pokemon, setPokemon] = useState(undefined);
 
     useEffect(() => {
         axios
-            .get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}/`)
-            .then(function (response) {
-                const { data } = response;
+            .get(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+            .then(res => {
+                const { data } = res;
                 setPokemon(data);
             })
-            .catch(function (error) {
+            .catch(() => {
                 setPokemon(false);
             });
-    }, [pokemonId]);
+    }, [id]);
 
     const generatePokemonJSX = (pokemon) => {
         const { name, id, species, height, weight, types, sprites } = pokemon;
@@ -56,7 +56,6 @@ const Pokemon = (props) => {
             {pokemon === undefined && <CircularProgress />}
             {pokemon !== undefined && pokemon && generatePokemonJSX(pokemon)}
             {pokemon === false && <Typography> Pokemon not found</Typography>}
-
             {pokemon !== undefined && (
                 <Button variant="contained" onClick={() => history.goBack()}>
                     Back To Pokedex

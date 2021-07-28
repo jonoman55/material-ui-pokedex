@@ -16,11 +16,7 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
         alignContent: 'center',
         width: '100%',
-        marginTop: '15px',
-        '& .MuiCardActions-root': {
-            paddingLeft: theme.spacing(1.5),
-            paddingRight: theme.spacing(1.5),
-        },
+        margin: theme.spacing(1.5),
     },
     card: {
         display: 'flex',
@@ -30,11 +26,11 @@ const useStyles = makeStyles((theme) => ({
         alignContent: 'center',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: theme.palette.primary.light,
         border: 'solid',
         borderWidth: '1px',
         borderRadius: '1rem',
-        borderColor: theme.palette.secondary.light,
+        borderColor: theme.palette.primary.main,
     },
     boxItem: {
         display: 'flex',
@@ -51,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         width: '100%',
         flexDirection: 'row',
-        flexWrap: 'warp',
         justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
@@ -62,15 +57,18 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.warning.main,
     },
     title: {
-        color: theme.palette.black.main,
+        color: theme.palette.primary.contrastText,
     },
+    searchIcon: {
+        color: theme.palette.primary.contrastText,
+    }
 }));
 
 // TODO : Add a favorites section or a sidebar that contains the pokemon favorites list
 export default function PokeExplorer({ input, onStartSearch, onSearchClick, genValue, genOptions, onGenSelect, onRefreshClick }) {
     const classes = useStyles();
     return (
-        <Box className={classes.root} component='div'>
+        <Box className={classes.root}>
             <Card className={classes.card}>
                 <CardContent>
                     <CardHeader className={classes.title} title='PokéExplorer' />
@@ -107,8 +105,8 @@ export default function PokeExplorer({ input, onStartSearch, onSearchClick, genV
                                 onChange={(event) => onStartSearch(event.target.value)}
                                 InputProps={{
                                     startAdornment: (
-                                        <InputAdornment position="start">
-                                            <Search />
+                                        <InputAdornment position='start'>
+                                            <Search className={classes.searchIcon} />
                                         </InputAdornment>
                                     )
                                 }}

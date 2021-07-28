@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles, Grid, Box } from '@material-ui/core';
 import { Header, ApiCredit, PokeExplorer, PokeContainer, HomeCard, Footer, ScrollToTop } from './index';
-import { formatGen, sanitizeGen } from '../helpers/text';
-import { getPokemon, getData } from '../api/PokemonService';
-import { getGeneration } from '../api/PokemonCounts';
+import { sanitizeGenNum } from '../helpers/text';
+import { getPokemon, getGenOptions } from '../api/PokemonService';
+import { getGenData } from '../api/PokemonCounts';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
+        backgroundColor: theme.palette.primary.main,
     },
     grid: {
         display: 'flex',
@@ -28,11 +29,10 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-// TODO : Add a scroll to bottom button
-// TODO : Add genId for history
+// TODO : Make pokemon sortable by types
 const Pokedex = (props) => {
     const classes = useStyles();
-    const { history } = props;
+    const { history, theme, handleThemeChange } = props;
     const [genNumber, setGenNumber] = useState(8);
     const [genList, setGenList] = useState([]);
     const [genValue, setGenValue] = useState('');
@@ -49,24 +49,14 @@ const Pokedex = (props) => {
     const fetchGens = async () => {
         try {
             setIsLoading(true);
-            const generations = await getData('https://pokeapi.co/api/v2/generation/');
-            setGenList(generations.results.map((g, i) => {
-                let num = i++;
-                if (num !== 0 && num <= 7) {
-                    return formatGen(g.name) + ' ' + num;
-                } else {
-                    return undefined;
-                }
-            }).filter((g) => g !== undefined));
+            const generations = await getGenOptions();
+            if (generations !== genList) setGenList(generations);
         } catch (error) {
             console.log(error);
         }
     };
 
     useEffect(() => {
-        // if (genNumber === 8) {
-        //     fetchGens();
-        // }
         fetchGens();
         // eslint-disable-next-line
     }, []);
@@ -76,7 +66,7 @@ const Pokedex = (props) => {
             setIsLoading(true);
             setFilter('');
             setGenNumber(genNumber);
-            let gen = getGeneration(genNumber);
+            let gen = getGenData(genNumber);
             const pokemons = await getPokemon(gen.offset, gen.limit);
             setFilteredPokeList(pokemons);
             setPokeList(pokemons);
@@ -103,16 +93,18 @@ const Pokedex = (props) => {
     };
 
     const clearFilter = () => {
+        setIsLoading(true);
         if (filter) {
             setFilter('');
             setFilteredPokeList(pokeList);
         }
+        setIsLoading(false);
     };
 
     const updateGen = async event => {
         let gen = event.target.value;
         setGenValue(gen);
-        setGenNumber(sanitizeGen(Number(gen.split(' ')[1].trim())));
+        setGenNumber(sanitizeGenNum(Number(gen.split(' ')[1].trim())));
     };
 
     return (
@@ -123,7 +115,7 @@ const Pokedex = (props) => {
                         <Header />
                     </Grid>
                     <Grid item>
-                        <ApiCredit />
+                        <ApiCredit theme={theme} handleThemeChange={handleThemeChange} />
                     </Grid>
                     <Grid className={classes.explorer} container item>
                         <PokeExplorer
@@ -141,13 +133,13 @@ const Pokedex = (props) => {
                     </Grid>
                     <Grid className={classes.items} container item spacing={2}>
                         <Grid item>
-                            {genValue === '' ? (<HomeCard />) : (
-                                <PokeContainer
-                                    pokemons={filteredPokeList}
-                                    isLoading={isLoading}
-                                    searchOnClick={clearFilter}
-                                    history={history}
-                                />)}
+                            {genValue === '' ? <HomeCard theme={theme} /> :
+                            <PokeContainer
+                                pokemons={filteredPokeList}
+                                isLoading={isLoading}
+                                searchOnClick={clearFilter}
+                                history={history}
+                            />}
                             <ScrollToTop showBelow={250} />
                         </Grid>
                     </Grid>

@@ -14,8 +14,10 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '1rem',
         border: 'solid',
         borderWidth: '2px',
-        borderColor: theme.palette.secondary.dark,
-        backgroundColor: theme.palette.secondary.light,
+        color: theme.palette.primary.contrastText,
+        borderColor: theme.palette.primary.contrastText,
+        backgroundColor: theme.palette.primary.dark,
+        marginBottom: theme.spacing(2),
         '& .MuiCardContent-root': {
             display: 'flex',
             width: '100%',
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     content: {
         cursor: 'default',
         '& .MuiCardActionArea-focusHighlight': {
-            backgroundColor: theme.palette.secondary.light,
+            backgroundColor: theme.palette.primary.dark,
         },
     },
     header: {
@@ -53,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '1rem',
         borderWidth: '1px',
         border: 'solid',
-        borderColor: theme.palette.secondary.dark,
+        borderColor: theme.palette.primary.dark,
         backgroundColor: theme.palette.background.default,
         '& .MuiAvatar-img': {
             display: 'flex',
@@ -69,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
         objectFit: 'cover',
         textTransform: 'capitalize',
         cursor: 'default',
-        borderColor: theme.palette.secondary.dark,
+        borderColor: theme.palette.primary.dark,
         borderRadius: '2rem',
         border: 'solid',
         borderWidth: '1px',
@@ -139,8 +141,9 @@ const useStyles = makeStyles((theme) => ({
         width: '32px',
         display: 'flex',
         marginRight: '2px',
-        color: theme.palette.primary.main,
-        borderColor: theme.palette.black.main,
+        color: theme.palette.primary.pokeRed,
+        backgroundColor: theme.palette.primary.contrastText,
+        borderRadius: '5rem',
         '& .MuiSvgIcon-root': {
             transition: 'none',
         },
@@ -154,8 +157,11 @@ const useStyles = makeStyles((theme) => ({
     },
     divider: {
         margin: '15px',
-        backgroundColor: theme.palette.secondary.dark,
+        backgroundColor: theme.palette.primary.contrastText,
     },
+    icon: {
+        color: theme.palette.primary.pokeRed,
+    }
 }));
 
 export default function LoadingCard() {
@@ -168,7 +174,7 @@ export default function LoadingCard() {
                     title='Loading'
                     avatar={
                         <Avatar className={classes.avatar}>
-                            <RotateLeft />
+                            <RotateLeft className={classes.icon} />
                         </Avatar>
                     }
                     action={

@@ -1,13 +1,11 @@
 import React from 'react';
-import { makeStyles, AppBar, Toolbar, Button, Link, Container } from '@material-ui/core';
+import { makeStyles, AppBar, Toolbar, Tooltip, Button, Link, Container } from '@material-ui/core';
 import { Copyright } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         bottom: 0,
-        borderTopLeftRadius: '1rem',
-        borderTopRightRadius: '1rem',
-        color: theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.pokeRed,
     },
     href: {
         display: 'flex',
@@ -16,14 +14,18 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         padding: theme.spacing(0.5),
         '& .MuiButton-root:hover': {
-            backgroundColor: theme.palette.primary.light,
+            color: theme.palette.primary.contrastText,
+            backgroundColor: theme.palette.primary.pokeRed,
+            border: 'solid',
+            borderWidth: '2px',
+            borderColor: theme.palette.primary.contrastText,
         },
         '& .MuiLink-underlineHover': {
             textDecoration: 'none',
-        }
+        },
     },
     link: {
-        color: '#000000',
+        color: theme.palette.black.main,
         borderRadius: '2rem',
         textTransform: 'capitalize',
         fontSize: 18,
@@ -37,13 +39,15 @@ export default function Footer() {
             <Toolbar component='footer' disableGutters>
                 <Container className={classes.href}>
                     <Link href='https://github.com/jonoman55/' target='_blank'>
-                        <Button
-                            className={classes.link}
-                            component='button'
-                            startIcon={<Copyright />}
-                        >
-                            John Chiappetta {new Date().getFullYear()}
-                        </Button>
+                        <Tooltip title='Visit My GitHub Page' position='top'>
+                            <Button
+                                className={classes.link}
+                                component='button'
+                                startIcon={<Copyright />}
+                            >
+                                John Chiappetta {new Date().getFullYear()}
+                            </Button>
+                        </Tooltip>
                     </Link>
                 </Container>
             </Toolbar>

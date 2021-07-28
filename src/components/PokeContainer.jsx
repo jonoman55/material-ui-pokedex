@@ -13,25 +13,23 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     card: {
-        width: '100%',
-        height: '100%',
+        minWidth: '25vw',
+        minHeight: '15vh',
     }
 }));
 
 export default function PokeContainer({ pokemons, isLoading, searchOnClick, history }) {
     const classes = useStyles();
-
     const getPokemonCard = pokemon => {
         return (
-            <Grid className={classes.card} item key={pokemon.id} sm={6} md={6} lg={4}>
-                <PokeCard pokemon={pokemon} onClick={() => history.push(`/pokedex/${pokemon.id}`)} />
+            <Grid className={classes.card} key={pokemon.id} item sm={6} md={6} lg={4}>
+                <PokeCard pokemon={pokemon} history={history} />
             </Grid>
         );
     };
-
     return (
         <Grid className={classes.root} container item spacing={2} sm md lg>
-            {isLoading ? (<LoadingCard />) : (pokemons.length === 0 ? <NoResultsCard onClick={searchOnClick} /> : pokemons.map(p => getPokemonCard(p)))}
+            {isLoading ? <LoadingCard /> : pokemons.length === 0 ? <NoResultsCard onClick={searchOnClick} /> : pokemons.map(p => getPokemonCard(p))}
         </Grid>
     );
 };

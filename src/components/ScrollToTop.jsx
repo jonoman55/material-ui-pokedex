@@ -10,12 +10,12 @@ const useStyles = makeStyles((theme) => ({
         right: '0.225rem',
         position: 'fixed',
         marginBottom: '0.55rem',
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.pokeRed,
         '&:hover': {
             transition: '0.2s',
-            backgroundColor: theme.palette.secondary.light,
+            backgroundColor: theme.palette.primary.dark,
             '& .MuiSvgIcon-root': {
-                color: theme.palette.primary.main,
+                color: theme.palette.primary.pokeRed,
             },
         },
     },

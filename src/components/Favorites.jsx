@@ -6,6 +6,12 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         width: '100%',
+        flexDirection: 'row',
+        flexWrap: 'nowrap',
+        alignContent: 'space-around',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        color: theme.palette.primary.contrastText,
     },
     favIco: {
         color: theme.palette.warning.main,

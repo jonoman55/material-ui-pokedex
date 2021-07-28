@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Avatar, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Divider, Typography, IconButton } from '@material-ui/core';
-import { Clear, Error, Pageview } from '@material-ui/icons';
+import { Clear, Error, PageviewOutlined } from '@material-ui/icons';
 import { MuiButton as ClearButton } from './index';
 import pokeball from '../../src/images/pokeball.gif';
 
@@ -13,8 +13,9 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '1rem',
         border: 'solid',
         borderWidth: '2px',
-        borderColor: theme.palette.secondary.dark,
-        backgroundColor: theme.palette.secondary.light,
+        borderColor: theme.palette.primary.light,
+        backgroundColor: theme.palette.primary.light,
+        marginBottom: theme.spacing(2),
         '& .MuiCardContent-root': {
             width: '100%',
             flexDirection: 'column',
@@ -28,8 +29,9 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     content: {
+        cursor: 'default',
         '& .MuiCardActionArea-focusHighlight': {
-            backgroundColor: theme.palette.background.default,
+            backgroundColor: 'transparent',
         },
     },
     header: {
@@ -48,8 +50,9 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '1rem',
         borderWidth: '1px',
         border: 'solid',
-        borderColor: theme.palette.secondary.dark,
-        backgroundColor: theme.palette.background.default,
+        color: theme.palette.primary.pokeRed,
+        borderColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.main,
         '& .MuiAvatar-img': {
             display: 'flex',
             color: 'transparent',
@@ -66,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
         objectFit: 'cover',
         textTransform: 'capitalize',
         cursor: 'default',
-        borderColor: theme.palette.secondary.dark,
+        borderColor: theme.palette.primary.dark,
         borderRadius: '2rem',
         border: 'solid',
         borderWidth: '1px',
@@ -76,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         padding: theme.spacing(1),
         marginBottom: '10px',
+        color: theme.palette.primary.contrastText,
         '& .MuiTypography-displayBlock': {
             display: 'flex',
             textAlign: 'center',
@@ -104,6 +108,7 @@ const useStyles = makeStyles((theme) => ({
     text: {
         margin: theme.spacing(2),
         padding: theme.spacing(1),
+        color: theme.palette.primary.contrastText,
         display: 'flex',
         alignItems: 'stretch',
         flexDirection: 'column',
@@ -132,27 +137,28 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: 'transparent',
         },
     },
-    error: {
+    errorIcon: {
         height: '32px',
         width: '32px',
-        color: theme.palette.primary.main,
+        color: theme.palette.primary.pokeRed,
         borderColor: theme.palette.black.main,
     },
     divider2: {
         marginRight: '10px',
         marginLeft: '10px',
-        backgroundColor: theme.palette.secondary.dark,
+        backgroundColor: theme.palette.primary.contrastText,
     },
     divider1: {
         marginTop: '2rem',
         marginBottom: '10px',
         marginRight: '10px',
         marginLeft: '10px',
-        backgroundColor: theme.palette.secondary.dark,
+        backgroundColor: theme.palette.primary.contrastText,
     },
 }));
 
 // TODO : Go through styling and remove any unnecessary code
+// TODO : Finish dark/light theme styling
 export default function NoResultsCard({ onClick }) {
     const classes = useStyles();
     return (
@@ -163,12 +169,12 @@ export default function NoResultsCard({ onClick }) {
                     title='No Pokémon Found'
                     avatar={
                         <Avatar className={classes.avatar}>
-                            <Pageview />
+                            <PageviewOutlined />
                         </Avatar>
                     }
                     action={
                         <IconButton className={classes.errorContainer} disableRipple>
-                            <Error className={classes.error} />
+                            <Error className={classes.errorIcon} />
                         </IconButton>
                     }
                 />
