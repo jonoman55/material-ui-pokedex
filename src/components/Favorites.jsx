@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Favorites() {
     const classes = useStyles();
     return (
-        <Grid className={classes.root} container item>
+        <Grid className={classes.root} container item xs={8}>
             <Grid item>
                 <Star className={classes.favIco} />
             </Grid>

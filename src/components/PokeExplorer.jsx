@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
         alignContent: 'center',
         width: '100%',
-        margin: theme.spacing(1.5),
     },
     card: {
         display: 'flex',
@@ -50,8 +49,8 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
-        padding: theme.spacing(2),
-        margin: theme.spacing(2),
+        padding: theme.spacing(1),
+        margin: theme.spacing(1),
     },
     favIco: {
         color: theme.palette.warning.main,
@@ -66,6 +65,8 @@ const useStyles = makeStyles((theme) => ({
 
 // TODO : Finish implementing the favorites list
 // TODO : Add MuiSelects for sorting Pokemon by type, name and id
+// TODO : Figure out how to make the search faster
+// TODO : Figure out how to make the clear function faster
 export default function PokeExplorer({ input, onStartSearch, onSearchClick, genValue, genOptions, onGenSelect, onRefreshClick }) {
     const classes = useStyles();
     return (
