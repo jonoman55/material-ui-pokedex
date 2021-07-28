@@ -5,6 +5,7 @@ import { toFirstCharUppercase } from '../helpers/text';
 import axios from "axios";
 
 // TODO : Refactor this code - make it into a popup modal instead of being pushed to browser history
+// TODO : Create makeStyles and style the components
 const Pokemon = (props) => {
     const { match, history } = props;
     const { params } = match;
@@ -37,7 +38,7 @@ const Pokemon = (props) => {
                 <Typography variant="h3">Pokemon Info</Typography>
                 <Typography>
                     {"Species: "}
-                    <Link href={species.url} target='_blank'>{species.name} </Link>
+                    <Link href={species.url} target='_blank'>{species.name}</Link>
                 </Typography>
                 <Typography>Height: {height} </Typography>
                 <Typography>Weight: {weight} </Typography>
