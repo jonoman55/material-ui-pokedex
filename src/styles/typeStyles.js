@@ -52,6 +52,9 @@ export default function getTypeStyle(type) {
         case 'dragon':
             color = '#f16e57';
             break;
+        case 'dark':
+            color = '#1a1a1a';
+            break;
         default:
             color = '#000';
             break;

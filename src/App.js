@@ -4,6 +4,7 @@ import { createBrowserHistory } from 'history';
 import { createTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import { Pokedex, Pokemon } from './components/index';
 import { light, dark } from './theme/muiTheme';
+import './styles/App.css'
 
 // TODO : Remove browser router and create popup modals for each pokemon instead
 const history = createBrowserHistory();

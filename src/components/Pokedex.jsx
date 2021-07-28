@@ -26,7 +26,12 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         alignContent: 'center',
         padding: theme.spacing(1),
-    }
+        margin: theme.spacing(1),
+        '&.MuiGrid-spacing-xs-2': { 
+            margin: 0, // fixes horizontal scroll bar issue
+            width: 'auto',
+        },
+    },
 }));
 
 // TODO : Remove the sleep function when site is finished

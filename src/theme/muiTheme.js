@@ -122,7 +122,7 @@ export const dark = {
                 root: {
                     color: '#000',
                 },
-            }
+            },
         },
         props: {
             MuiCardActionArea: {
