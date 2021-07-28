@@ -62,7 +62,7 @@ export default function ApiCredit({ theme, handleThemeChange }) {
                         </Link>
                     </Box>
                     <Box component='div'>
-                        <Link href='https://github.com/jonoman55/online-pokedex' target="_blank">
+                        <Link href='https://github.com/jonoman55/material-ui-pokedex' target="_blank">
                             <Tooltip title='GitHub Repo' position='bottom'>
                                 <IconButton>
                                     <GitHub className={classes.icon} />
