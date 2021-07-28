@@ -1,5 +1,3 @@
-// TODO - Refactor this code into a reducer
-
 const counts = {
     zero: 0,
     gen1: 151,

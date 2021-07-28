@@ -64,7 +64,8 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-// TODO : Add a favorites section or a sidebar that contains the pokemon favorites list
+// TODO : Finish implementing the favorites list
+// TODO : Add MuiSelects for sorting Pokemon by type, name and id
 export default function PokeExplorer({ input, onStartSearch, onSearchClick, genValue, genOptions, onGenSelect, onRefreshClick }) {
     const classes = useStyles();
     return (

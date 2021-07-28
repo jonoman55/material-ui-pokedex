@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-// TODO : Finish dark/light theme styling
 export default function Header() {
     const classes = useStyles();
     return (

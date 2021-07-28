@@ -1,3 +1,4 @@
+// Material-ui offers the capitalize function in it's @material-ui/core library
 // Capitalizes first letter
 export const capitalize = (str) => {
     if (typeof str === 'string') {

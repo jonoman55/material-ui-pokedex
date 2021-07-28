@@ -1,6 +1,5 @@
 // TODO : Clean up any unnecessary components and controls from Project
 // Main App Component
-export { default as Home } from './Home';
 export { default as Pokedex } from './Pokedex';
 export { default as Pokemon } from './Pokemon';
 // Layout Component Exports

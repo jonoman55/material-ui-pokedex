@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-// TODO : Make pokemon sortable by types
+// TODO : Remove the sleep function when site is finished
 const Pokedex = (props) => {
     const classes = useStyles();
     const { history, theme, handleThemeChange } = props;

@@ -157,8 +157,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-// TODO : Go through styling and remove any unnecessary code
-// TODO : Finish dark/light theme styling
 export default function NoResultsCard({ onClick }) {
     const classes = useStyles();
     return (
