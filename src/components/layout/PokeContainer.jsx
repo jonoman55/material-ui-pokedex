@@ -1,5 +1,5 @@
 import React from 'react';
-import { PokeCard, NoResultsCard, LoadingCard } from './index';
+import { PokeCard, NoResultsCard, LoadingCard } from '../index';
 import { makeStyles, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({

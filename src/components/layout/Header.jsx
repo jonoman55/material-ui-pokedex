@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, AppBar, Toolbar, Link, Tooltip } from '@material-ui/core';
-import Pokeball from './svg/pokeball';
+import Pokeball from '../svg/pokeball';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+// TODO : Make pokeball svg smaller and try to replace the O in Online with it
 export default function Header() {
     const classes = useStyles();
     return (

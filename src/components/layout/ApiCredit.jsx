@@ -37,15 +37,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ApiCredit({ theme, handleThemeChange }) {
     const classes = useStyles();
-    const createThemeTitle = (theme) => (theme ? 'Dark': 'Light') + ' Theme';
     return (
         <AppBar className={classes.root} position='static'>
             <Toolbar>
                 <Container className={classes.container} maxWidth='xl'>
                     <Box component='div'>
-                        <Tooltip title={createThemeTitle(theme)}>
-                            <Switch checked={theme} onChange={handleThemeChange} />
-                        </Tooltip>
+                        <Link href='https://github.com/jonoman55/material-ui-pokedex' target="_blank">
+                            <Tooltip title='GitHub Repo' position='bottom'>
+                                <IconButton>
+                                    <GitHub className={classes.icon} />
+                                </IconButton>
+                            </Tooltip>
+                        </Link>
                     </Box>
                     <Box component='div'>
                         <Link href='https://pokeapi.co/' target="_blank" style={{ textDecoration: 'none', }}>
@@ -62,13 +65,9 @@ export default function ApiCredit({ theme, handleThemeChange }) {
                         </Link>
                     </Box>
                     <Box component='div'>
-                        <Link href='https://github.com/jonoman55/material-ui-pokedex' target="_blank">
-                            <Tooltip title='GitHub Repo' position='bottom'>
-                                <IconButton>
-                                    <GitHub className={classes.icon} />
-                                </IconButton>
-                            </Tooltip>
-                        </Link>
+                        <Tooltip title={(theme ? 'Dark': 'Light') + ' Theme'}>
+                            <Switch checked={theme} onChange={handleThemeChange} />
+                        </Tooltip>
                     </Box>
                 </Container>
             </Toolbar>

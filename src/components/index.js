@@ -1,21 +1,19 @@
 // TODO : Clean up any unnecessary components and controls from Project
-// Main App Component
-export { default as Pokedex } from './Pokedex';
-export { default as Pokemon } from './Pokemon';
 // Layout Component Exports
-export { default as Header } from './Header';
-export { default as ApiCredit } from './ApiCredit';
-export { default as PokeContainer } from './PokeContainer';
-export { default as PokeExplorer } from './PokeExplorer';
-export { default as ScrollToTop } from './ScrollToTop';
-export { default as Footer } from './Footer';
-// Usable Component Exports
-export { default as MuiButton } from './MuiButton';
-export { default as MuiSelect } from './MuiSelect';
-export { default as MuiSearch } from './MuiSearch';
-export { default as HomeCard } from './HomeCard';
-export { default as PokeCard } from './PokeCard';
-export { default as NoResultsCard } from './NoResultsCard';
-export { default as LoadingCard } from './LoadingCard';
-export { default as TypeBadge } from './TypeBadge';
-export { default as Favorites } from './Favorites';
+export { default as Header } from './layout/Header';
+export { default as ApiCredit } from './layout/ApiCredit';
+export { default as PokeContainer } from './layout/PokeContainer';
+export { default as PokeExplorer } from './layout/PokeExplorer';
+export { default as ScrollToTop } from './layout/ScrollToTop';
+export { default as Footer } from './layout/Footer';
+export { default as TypeButton } from './layout/TypeButton';
+export { default as Favorites } from './layout/Favorites';
+// Card Component Exports
+export { default as HomeCard } from './cards/HomeCard';
+export { default as PokeCard } from './cards/PokeCard';
+export { default as NoResultsCard } from './cards/NoResultsCard';
+export { default as LoadingCard } from './cards/LoadingCard';
+// Control Component Exports
+export { default as MuiButton } from './controls/MuiButton';
+export { default as MuiSelect } from './controls/MuiSelect';
+export { default as MuiSearch } from './controls/MuiSearch';

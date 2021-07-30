@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles, Avatar, Box, Button, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Divider, Typography, Tooltip, IconButton } from '@material-ui/core';
 import { Star, Info } from '@material-ui/icons';
-import { TypeBadge } from './index';
-import { getPokeDesc } from '../api/PokemonService';
-import { formatId } from '../helpers/text';
-import getTypeStyle from '../styles/typeStyles';
+import { TypeButton } from '../';
+import { getPokeDesc } from '../../api/PokemonService';
+import { formatId } from '../../helpers/text';
+import getTypeStyle from '../../styles/typeStyles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -237,13 +237,13 @@ export default function PokeCard({ pokemon, history }) {
                 <Box className={classes.types} component='div'>
                     {pokemon.types.length > 0 &&
                         pokemon.types.map((t, id) => (
-                            <TypeBadge
+                            <TypeButton
                                 key={id}
                                 text={t.type.name}
                                 color={getTypeStyle(t.type.name)}
                             >
                                 {t.type.name}
-                            </TypeBadge>
+                            </TypeButton>
                         ))}
                 </Box>
             </CardActions>

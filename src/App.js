@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { createTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
-import { Pokedex, Pokemon } from './components/index';
+import { Pokedex, Pokemon } from './pages';
 import { light, dark } from './theme/muiTheme';
 import './styles/App.css'
 
@@ -16,7 +16,9 @@ export default function App() {
             <CssBaseline />
             <Router history={history} forceRefresh={true}>
                 <Switch>
-                    <Route exact path='/'><Pokedex theme={theme} handleThemeChange={() => setTheme(!theme)} history={history} /></Route>
+                    <Route exact path='/'>
+                        <Pokedex theme={theme} handleThemeChange={() => setTheme(!theme)} history={history} />
+                    </Route>
                     <Route exact path='/:id' component={Pokemon} />
                 </Switch>
             </Router>

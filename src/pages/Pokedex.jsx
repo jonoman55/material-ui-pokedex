@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles, Grid, Box } from '@material-ui/core';
-import { Header, ApiCredit, PokeExplorer, PokeContainer, HomeCard, Footer, ScrollToTop } from './index';
+import { Header, ApiCredit, PokeExplorer, PokeContainer, HomeCard, Footer, ScrollToTop } from '../components';
 import { sanitizeGenNum } from '../helpers/text';
 import { getPokemon, getGenOptions } from '../api/PokemonService';
 import { getGenData } from '../api/PokemonCounts';

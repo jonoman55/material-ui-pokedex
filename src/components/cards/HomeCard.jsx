@@ -1,7 +1,7 @@
 import { makeStyles, Avatar, Box, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Divider, Typography, IconButton } from '@material-ui/core';
 import { Language, VideogameAsset } from '@material-ui/icons';
-import { MuiButton as GoToButton } from './index';
-import pokemon from '../../src/images/pokemon2.png';
+import { MuiButton as GoToButton } from '../';
+import pokemon from '../../images/pokemon2.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -7,7 +7,7 @@ import {
     MuiSelect as GenSelect,
     MuiButton as RefreshButton,
     Favorites
-} from './index';
+} from '../';
 
 const useStyles = makeStyles((theme) => ({
     root: {

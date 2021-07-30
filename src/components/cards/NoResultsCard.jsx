@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles, Avatar, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Divider, Typography, IconButton } from '@material-ui/core';
 import { Clear, Error, PageviewOutlined } from '@material-ui/icons';
-import { MuiButton as ClearButton } from './index';
-import pokeball from '../../src/images/pokeball.gif';
+import { MuiButton as ClearButton } from '../';
+import pokeball from '../../images/pokeball.gif';
 
 const useStyles = makeStyles((theme) => ({
     root: {

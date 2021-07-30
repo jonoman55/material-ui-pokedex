@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, Avatar, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Typography, IconButton, Divider } from '@material-ui/core';
 import { Error, RotateLeft } from '@material-ui/icons';
-import spinner from '../images/spinner.gif';
+import spinner from '../../images/spinner.gif';
 
 const useStyles = makeStyles((theme) => ({
     root: {

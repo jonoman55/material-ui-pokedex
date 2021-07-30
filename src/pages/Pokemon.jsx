@@ -5,6 +5,7 @@ import { toFirstCharUppercase } from '../helpers/text';
 import axios from "axios";
 
 // TODO : Refactor this code - make it into a popup modal instead of being pushed to browser history
+// TODO : Import NotFound component
 // TODO : Create makeStyles and style the components
 const Pokemon = (props) => {
     const { match, history } = props;
