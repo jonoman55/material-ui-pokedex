@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles, Grid, Box } from '@material-ui/core';
 import { Header, ApiCredit, PokeExplorer, PokeContainer, HomeCard, Footer, ScrollToTop } from '../components';
 import { sanitizeGenNum } from '../helpers/text';
-import { getPokemon, getGenOptions } from '../api/PokemonService';
 import { getGenData } from '../api/PokemonCounts';
+import * as api from '../api/PokemonService';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,24 +47,19 @@ const Pokedex = (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const unmounted = useRef(false);
 
-    // const sleep = (milliseconds) => {
-    //     return new Promise(resolve => setTimeout(resolve, milliseconds))
-    // };
-
     const fetchGens = async () => {
         try {
             setIsLoading(true);
-            const generations = await getGenOptions();
+            const generations = await api.getGenOptions();
             if (generations !== genList) setGenList(generations);
         } catch (error) {
             console.log(error);
+            setIsLoading(false);
         }
     };
 
-    useEffect(() => {
-        fetchGens();
-        // eslint-disable-next-line
-    }, []);
+    // eslint-disable-next-line
+    useEffect(() => { fetchGens(); }, []);
 
     const fetchPokemon = async () => {
         try {
@@ -72,13 +67,14 @@ const Pokedex = (props) => {
             setFilter('');
             setGenNumber(genNumber);
             let gen = getGenData(genNumber);
-            const pokemons = await getPokemon(gen.offset, gen.limit);
+            const pokemons = await api.getPokemon(gen.offset, gen.limit);
             setFilteredPokeList(pokemons);
             setPokeList(pokemons);
-            // await sleep(200000000);
+            await api.sleep(1000);
             setIsLoading(false);
         } catch (error) {
             console.log(error);
+            setIsLoading(false);
         }
     };
 
@@ -98,18 +94,16 @@ const Pokedex = (props) => {
     };
 
     const clearFilter = () => {
-        setIsLoading(true);
         if (filter) {
             setFilter('');
             setFilteredPokeList(pokeList);
         }
-        setIsLoading(false);
     };
 
     const updateGen = async event => {
-        let gen = event.target.value;
-        setGenValue(gen);
-        setGenNumber(sanitizeGenNum(Number(gen.split(' ')[1].trim())));
+        let { value } = event.target;
+        setGenValue(value);
+        setGenNumber(sanitizeGenNum(Number(value.split(' ')[1].trim())));
     };
 
     return (

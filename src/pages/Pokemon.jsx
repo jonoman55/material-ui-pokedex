@@ -1,11 +1,27 @@
-/* eslint-disable jsx-a11y/alt-text */
-import React, { useEffect, useState } from "react";
-import { Typography, Link, CircularProgress, Button } from "@material-ui/core";
-import { toFirstCharUppercase } from '../helpers/text';
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { Box, Typography, Link, CircularProgress, Button, capitalize, styled } from '@material-ui/core';
+import { NotFound } from '../pages'
+import { padId } from '../helpers/text';
+import * as api from '../api/PokemonService';
+import getTypeStyle from '../styles/typeStyles';
+
+// TODO : Replace this with makeStyles
+const Div = styled('div')({
+    fontFamily: 'Roboto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent:'center',
+    width: '100%',
+    height: '100vh',
+    backgroundColor: '#fafafa',
+    margin: '0px',
+    padding: '15px',
+    position: 'fixed',
+    top: '0px',
+    zIndex: 999,
+});
 
 // TODO : Refactor this code - make it into a popup modal instead of being pushed to browser history
-// TODO : Import NotFound component
 // TODO : Create makeStyles and style the components
 const Pokemon = (props) => {
     const { match, history } = props;
@@ -14,56 +30,55 @@ const Pokemon = (props) => {
     const [pokemon, setPokemon] = useState(undefined);
 
     useEffect(() => {
-        axios
-            .get(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+        api.getPokemonById(id)
             .then(res => {
-                const { data } = res;
-                setPokemon(data);
+                setPokemon(res);
             })
             .catch(() => {
                 setPokemon(false);
             });
+        // eslint-disable-next-line
     }, [id]);
 
     const generatePokemonJSX = (pokemon) => {
         const { name, id, species, height, weight, types, sprites } = pokemon;
-        const fullImageUrl = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
+        const fullImageUrl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${padId(id)}.png`;
         const { front_default } = sprites;
         return (
-            <>
-                <Typography variant="h1">
-                    {`${id}.`} {toFirstCharUppercase(name)}
-                    <img src={front_default} />
+            <Box component='div' style={{ height: '100%', width: '100%'}}>
+                <Typography style={{ fontWeight: 'bold', fontSize: 36 }}>
+                    {`${id}.`} {capitalize(name)}
+                    <img src={front_default} alt='Not Found' style={{ marginLeft:'10px', marginTop: '10px', width: '65px', height: '65px' }} />
                 </Typography>
-                <img style={{ width: "300px", height: "300px" }} src={fullImageUrl} />
-                <Typography variant="h3">Pokemon Info</Typography>
+                <img style={{ width: '300px', height: '300px' }} src={fullImageUrl} alt='Not Found' />
+                <Typography style={{ fontWeight: 'bold', fontSize: 28 }}>Pokémon Info</Typography>
                 <Typography>
-                    {"Species: "}
-                    <Link href={species.url} target='_blank'>{species.name}</Link>
+                    {'Species: '}
+                    <Link style={{ color: '#FF0000' }} href={species.url} target='_blank'>
+                        {capitalize(species.name)}
+                    </Link>
                 </Typography>
                 <Typography>Height: {height} </Typography>
                 <Typography>Weight: {weight} </Typography>
-                <Typography variant="h6"> Types:</Typography>
+                <Typography style={{ fontSize: 18, fontWeight: 'bold' }}> Types:</Typography>
                 {types.map((typeInfo) => {
                     const { type } = typeInfo;
                     const { name } = type;
-                    return <Typography key={name}> {`${name}`}</Typography>;
+                    return <Typography key={name} style={{ color: getTypeStyle(name)}}> {`${capitalize(name)}`}</Typography>;
                 })}
-            </>
+                <Button variant='contained' onClick={() => history.push('/')} style={{ marginLeft:'10px', marginTop: '10px', width: '200px', textAlign: 'center' }}>
+                    Back To Pokédex
+                </Button>
+            </Box>
         );
     };
 
     return (
-        <>
+        <Div>
             {pokemon === undefined && <CircularProgress />}
             {pokemon !== undefined && pokemon && generatePokemonJSX(pokemon)}
-            {pokemon === false && <Typography> Pokemon not found</Typography>}
-            {pokemon !== undefined && (
-                <Button variant="contained" onClick={() => history.goBack()}>
-                    Back To Pokedex
-                </Button>
-            )}
-        </>
+            {pokemon === false && <NotFound />}
+        </Div>
     );
 };
 

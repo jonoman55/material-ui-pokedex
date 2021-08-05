@@ -3,7 +3,7 @@ import { makeStyles, Avatar, Box, Button, Card, CardActions, CardActionArea, Car
 import { Star, Info } from '@material-ui/icons';
 import { TypeButton } from '../';
 import { getPokeDesc } from '../../api/PokemonService';
-import { formatId } from '../../helpers/text';
+import { padId } from '../../helpers/text';
 import getTypeStyle from '../../styles/typeStyles';
 
 const useStyles = makeStyles((theme) => ({
@@ -214,7 +214,7 @@ export default function PokeCard({ pokemon, history }) {
                     <CardMedia
                         className={classes.image}
                         component='img'
-                        src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${formatId(pokemon.id)}.png`}
+                        src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${padId(pokemon.id)}.png`}
                         alt='Not Found'
                     />
                 </CardActionArea>

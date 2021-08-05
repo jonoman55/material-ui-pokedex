@@ -42,8 +42,8 @@ export default function ApiCredit({ theme, handleThemeChange }) {
             <Toolbar>
                 <Container className={classes.container} maxWidth='xl'>
                     <Box component='div'>
-                        <Link href='https://github.com/jonoman55/material-ui-pokedex' target="_blank">
-                            <Tooltip title='GitHub Repo' position='bottom'>
+                        <Link href='https://github.com/jonoman55/material-ui-pokedex' target='_blank'>
+                            <Tooltip title='GitHub Repo' placement='bottom'>
                                 <IconButton>
                                     <GitHub className={classes.icon} />
                                 </IconButton>
@@ -51,12 +51,12 @@ export default function ApiCredit({ theme, handleThemeChange }) {
                         </Link>
                     </Box>
                     <Box component='div'>
-                        <Link href='https://pokeapi.co/' target="_blank" style={{ textDecoration: 'none', }}>
-                            <Tooltip title='PokeApi' position='bottom'>
+                        <Link href='https://pokeapi.co/' target='_blank' style={{ textDecoration: 'none' }}>
+                            <Tooltip title='PokeApi' placement='bottom' arrow>
                                 <Button
                                     className={classes.link}
                                     component='button'
-                                    size="large"
+                                    size='large'
                                     startIcon={<Gamepad className={classes.icon} />}
                                 >
                                     PokeApi
@@ -65,7 +65,7 @@ export default function ApiCredit({ theme, handleThemeChange }) {
                         </Link>
                     </Box>
                     <Box component='div'>
-                        <Tooltip title={(theme ? 'Dark': 'Light') + ' Theme'}>
+                        <Tooltip title={'Switch To ' + (theme ? 'Dark': 'Light') + ' Theme'} placement='bottom'>
                             <Switch checked={theme} onChange={handleThemeChange} />
                         </Tooltip>
                     </Box>

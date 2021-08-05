@@ -108,3 +108,7 @@ export const getPokeDescFromUrl = async (url) => {
         throw err;
     }
 };
+
+export const sleep = async (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+};

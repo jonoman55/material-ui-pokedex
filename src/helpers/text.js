@@ -60,3 +60,6 @@ export function formatId(id) {
 export const toFirstCharUppercase = name => {
     return name.charAt(0).toUpperCase() + name.slice(1)
 };
+
+// Appends necessary 0's to the pokemon's id for the img url
+export const padId = (id) => ('00' + (id)).slice(-3);
