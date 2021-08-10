@@ -1,3 +1,4 @@
+// TODO : Move to constants or helper folder
 const counts = {
     zero: 0,
     gen1: 151,

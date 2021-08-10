@@ -1,5 +1,4 @@
-import React from 'react';
-import { makeStyles, AppBar, Toolbar, Tooltip, Button, Link, Container } from '@material-ui/core';
+import { makeStyles, AppBar, Toolbar, Tooltip, Button, Container } from '@material-ui/core';
 import { Copyright } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -7,10 +6,10 @@ const useStyles = makeStyles((theme) => ({
         bottom: 0,
         backgroundColor: theme.palette.primary.pokeRed,
     },
-    href: {
+    container: {
         display: 'flex',
         width: '100%',
-        alignContent: "center",
+        alignContent: 'center',
         justifyContent: 'center',
         padding: theme.spacing(0.5),
         '& .MuiButton-root:hover': {
@@ -37,20 +36,19 @@ export default function Footer() {
     return (
         <AppBar position='static' className={classes.root}>
             <Toolbar component='footer' disableGutters>
-                <Container className={classes.href}>
-                    <Link href='https://github.com/jonoman55/' target='_blank'>
-                        <Tooltip title='Visit My GitHub Page' position='top'>
-                            <Button
-                                className={classes.link}
-                                component='button'
-                                startIcon={<Copyright />}
-                            >
-                                John Chiappetta {new Date().getFullYear()}
-                            </Button>
-                        </Tooltip>
-                    </Link>
+                <Container className={classes.container}>
+                    <Tooltip title='Visit My GitHub Page' position='top'>
+                        <Button
+                            className={classes.link}
+                            component='button'
+                            startIcon={<Copyright />}
+                            onClick={() => window.open('https://github.com/jonoman55/material-ui-pokedex', '_blank')}
+                        >
+                            John Chiappetta {new Date().getFullYear()}
+                        </Button>
+                    </Tooltip>
                 </Container>
             </Toolbar>
         </AppBar>
     );
-}
+};

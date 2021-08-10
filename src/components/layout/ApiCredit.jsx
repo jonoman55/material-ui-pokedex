@@ -1,6 +1,7 @@
-import React from 'react';
-import { makeStyles, AppBar, Button, Box, Container, Toolbar, Tooltip, Link, Switch, IconButton } from '@material-ui/core';
+import React, { useContext } from 'react';
+import { makeStyles, AppBar, Button, Box, Container, Toolbar, Tooltip, Switch, IconButton } from '@material-ui/core';
 import { Gamepad, GitHub } from '@material-ui/icons';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,38 +36,38 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ApiCredit({ theme, handleThemeChange }) {
+// TODO : ThemeContext needed here to switch theme from dark to light
+export default function ApiCredit() {
+    const { theme, setTheme  } = useContext(ThemeContext);
     const classes = useStyles();
+    const themeTitle = 'Switch To ' + (theme ? 'Dark' : 'Light') + ' Theme';
     return (
         <AppBar className={classes.root} position='static'>
             <Toolbar>
                 <Container className={classes.container} maxWidth='xl'>
                     <Box component='div'>
-                        <Link href='https://github.com/jonoman55/material-ui-pokedex' target='_blank'>
-                            <Tooltip title='GitHub Repo' placement='bottom'>
-                                <IconButton>
-                                    <GitHub className={classes.icon} />
-                                </IconButton>
-                            </Tooltip>
-                        </Link>
+                        <Tooltip title='GitHub Repo' placement='bottom'>
+                            <IconButton onClick={() => window.open('https://github.com/jonoman55/material-ui-pokedex', '_blank')}>
+                                <GitHub className={classes.icon} />
+                            </IconButton>
+                        </Tooltip>
                     </Box>
                     <Box component='div'>
-                        <Link href='https://pokeapi.co/' target='_blank' style={{ textDecoration: 'none' }}>
-                            <Tooltip title='PokeApi' placement='bottom' arrow>
-                                <Button
-                                    className={classes.link}
-                                    component='button'
-                                    size='large'
-                                    startIcon={<Gamepad className={classes.icon} />}
-                                >
-                                    PokeApi
-                                </Button>
-                            </Tooltip>
-                        </Link>
+                        <Tooltip title='PokeApi' placement='bottom' arrow>
+                            <Button
+                                className={classes.link}
+                                component='button'
+                                size='large'
+                                startIcon={<Gamepad className={classes.icon} />}
+                                onClick={() => window.open('https://pokeapi.co/', '_blank')}
+                            >
+                                PokeApi
+                            </Button>
+                        </Tooltip>
                     </Box>
                     <Box component='div'>
-                        <Tooltip title={'Switch To ' + (theme ? 'Dark': 'Light') + ' Theme'} placement='bottom'>
-                            <Switch checked={theme} onChange={handleThemeChange} />
+                        <Tooltip title={themeTitle} placement='bottom'>
+                            <Switch checked={theme} onChange={() => setTheme(!theme)} />
                         </Tooltip>
                     </Box>
                 </Container>

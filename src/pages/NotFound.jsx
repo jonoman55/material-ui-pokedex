@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-// TODO : Import this to the Pokemon card if routing is going to be used
 export default function NotFound() {
     const classes = useStyles();
     return (

@@ -18,8 +18,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function PokeContainer({ pokemons, isLoading, searchOnClick, history }) {
+export default function PokeContainer({ filter, isLoading, pokemons, searchOnClick, history }) {
     const classes = useStyles();
+
     const getPokemonCard = pokemon => {
         return (
             <Grid className={classes.card} key={pokemon.id} item sm={6} md={6} lg={4}>
@@ -27,9 +28,14 @@ export default function PokeContainer({ pokemons, isLoading, searchOnClick, hist
             </Grid>
         );
     };
+
+    //isLoading check ->  render pokemon cards -> check for filtered results
     return (
         <Grid className={classes.root} container item spacing={2} sm md lg>
-            {isLoading ? <LoadingCard /> : pokemons.length === 0 ? <NoResultsCard onClick={searchOnClick} /> : pokemons.map(p => getPokemonCard(p))}
+            {!isLoading && pokemons.length !== 0 ? pokemons?.map(p => getPokemonCard(p))
+                : filter !== '' && pokemons.length === 0 ? <NoResultsCard onClick={searchOnClick} />
+                    : <LoadingCard />
+            }
         </Grid>
     );
 };

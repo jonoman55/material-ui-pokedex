@@ -24,7 +24,7 @@ export const getPokemonByGen = async (offset, limit) => {
 
 export const getPokemon = async (offset, limit) => {
     try {
-        console.log('fetching pokemon...');
+        console.log(`fetching ${limit} pokemon...`);
         let pokemons = await getPokemonByGen(offset, limit);
         let pokemonPromises = pokemons.map((p) => getData(p.url));
         return await Promise.all(pokemonPromises);
@@ -78,7 +78,7 @@ export const getPokeDesc = async (pokemon) => {
 
 export const getPokeDescFromData = async (pokemon) => {
     try {
-        console.log('fetching pokemon description from model...');
+        console.log('fetching pokemon description from data...');
         const { url } = pokemon;
         let descriptions = await getData(url);
         return descriptions.flavor_text_entries.map((f) => {
@@ -110,5 +110,12 @@ export const getPokeDescFromUrl = async (url) => {
 };
 
 export const sleep = async (milliseconds) => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds))
+    try {
+        console.log(`sleeping for ${milliseconds} milliseconds...`);
+        return new Promise(resolve => {
+            setTimeout(resolve, milliseconds);
+        });
+    } catch (err) {
+        throw err;
+    }
 };

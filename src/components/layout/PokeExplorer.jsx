@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // TODO : Finish implementing the favorites list
-// TODO : Add MuiSelects for sorting Pokemon by type, name and id
+// TODO : Add MuiSelects for filtering Pokemon by type, name and id
 // TODO : Figure out how to make the search faster
 // TODO : Figure out how to make the clear function faster
 export default function PokeExplorer({ input, onStartSearch, onSearchClick, genValue, genOptions, onGenSelect, onRefreshClick }) {

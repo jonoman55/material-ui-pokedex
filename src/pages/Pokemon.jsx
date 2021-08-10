@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Link, CircularProgress, Button, capitalize, styled } from '@material-ui/core';
 import { NotFound } from '../pages'
-import { padId } from '../helpers/text';
 import * as api from '../api/PokemonService';
-import getTypeStyle from '../styles/typeStyles';
+import { padId } from '../helpers/text';
+import useMountedState from '../helpers/mounted';
+import getTypeStyle from '../helpers/types';
 
 // TODO : Replace this with makeStyles
 const Div = styled('div')({
@@ -21,9 +22,9 @@ const Div = styled('div')({
     zIndex: 999,
 });
 
-// TODO : Refactor this code - make it into a popup modal instead of being pushed to browser history
-// TODO : Create makeStyles and style the components
+// TODO : Refactor this code for desktop and mobile using material-ui
 const Pokemon = (props) => {
+    const isMounted = useMountedState();
     const { match, history } = props;
     const { params } = match;
     const { id } = params;
@@ -32,13 +33,14 @@ const Pokemon = (props) => {
     useEffect(() => {
         api.getPokemonById(id)
             .then(res => {
+                if (isMounted()) {
                 setPokemon(res);
+                }
             })
             .catch(() => {
                 setPokemon(false);
             });
-        // eslint-disable-next-line
-    }, [id]);
+    }, [id, isMounted]);
 
     const generatePokemonJSX = (pokemon) => {
         const { name, id, species, height, weight, types, sprites } = pokemon;

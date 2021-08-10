@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, AppBar, Toolbar, Link, Tooltip } from '@material-ui/core';
-import Pokeball from '../svg/pokeball';
+import Pokeball from '../svgs/pokeball';
 
 const useStyles = makeStyles((theme) => ({
     root: {
