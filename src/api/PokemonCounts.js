@@ -32,7 +32,7 @@ export function getGenData(gen) {
         case 8:
             return gen = { id: 8, offset: counts.zero, limit: counts.gen1, msg: 'Select Generation' }; // ID 8 for default: Gen 1
         case 9:
-            return gen = { id: 9, offset: counts.zero, limit: 24, msg: 'Select Generation' }; // Custom ID for testing in new UI
+            return gen = { id: 9, offset: counts.zero, limit: 0, msg: 'Select Generation' }; // Custom ID for testing in new UI
         default:
             return gen = { id: 8, offset: counts.zero, limit: counts.gen1, msg: 'Select Generation' }; // Duplicate of 8
     };

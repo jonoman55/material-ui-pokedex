@@ -48,12 +48,12 @@ const Pokemon = (props) => {
         const { front_default } = sprites;
         return (
             <Box component='div' style={{ height: '100%', width: '100%'}}>
-                <Typography style={{ fontWeight: 'bold', fontSize: 36 }}>
+                <Typography style={{ fontWeight: 'bold', fontSize: 28 }}>
                     {`${id}.`} {capitalize(name)}
-                    <img src={front_default} alt='Not Found' style={{ marginLeft:'10px', marginTop: '10px', width: '65px', height: '65px' }} />
+                    <img src={front_default} alt='Not Found' style={{ marginLeft:'7.5px', marginTop: '7.5px', width: '50px', height: '50px' }} />
                 </Typography>
                 <img style={{ width: '300px', height: '300px' }} src={fullImageUrl} alt='Not Found' />
-                <Typography style={{ fontWeight: 'bold', fontSize: 28 }}>Pokémon Info</Typography>
+                <Typography style={{ fontWeight: 'bold', fontSize: 24 }}>Pokémon Info</Typography>
                 <Typography>
                     {'Species: '}
                     <Link style={{ color: '#FF0000' }} href={species.url} target='_blank'>

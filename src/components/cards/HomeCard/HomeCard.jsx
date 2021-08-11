@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Avatar, Box, Card, CardActions, CardActionArea, CardContent, CardMedia, CardHeader, Divider, Typography, IconButton } from '@material-ui/core';
 import { Language, VideogameAsset } from '@material-ui/icons';
-import { ThemeContext } from '../../../contexts/ThemeContext';
 import { MuiButton as GoToButton } from '../../';
+import ThemeContext from '../../../contexts/ThemeContext';
 import pokemon from '../../../images/pokemon2.png';
 import useStyles from './styles';
 

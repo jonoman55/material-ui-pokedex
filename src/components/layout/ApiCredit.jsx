@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { makeStyles, AppBar, Button, Box, Container, Toolbar, Tooltip, Switch, IconButton } from '@material-ui/core';
 import { Gamepad, GitHub } from '@material-ui/icons';
-import { ThemeContext } from '../../contexts/ThemeContext';
+import ThemeContext from '../../contexts/ThemeContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles, Grid, Box } from '@material-ui/core';
-import { PokedexContext } from '../contexts/PokedexContext';
 import { Header, ApiCredit, PokeExplorer, PokeContainer, HomeCard, Footer, ScrollToTop } from '../components';
 import { sanitizeGenNum } from '../helpers/text';
-import useMountedState from '../helpers/mounted';
 import { getGenData } from '../api/PokemonCounts';
+import AppContext from '../contexts/AppContext';
+import useMountedState from '../helpers/mounted';
 import * as api from '../api/PokemonService';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,14 +37,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // TODO : Implement filters -> by type, id and name
-const Pokedex = (props) => {
+const Pokedex = ({ history }) => {
     const isMounted = useMountedState();
-    const { history } = props;
-    const { genNumber, setGenNumber, genValue, setGenValue, genList, setGenList } = useContext(PokedexContext);
-    const [pokeList, setPokeList] = useState([]);
-    const [filteredPokeList, setFilteredPokeList] = useState([]);
-    const [filter, setFilter] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
+    const {
+        genNumber, setGenNumber,
+        genValue, setGenValue,
+        genList, setGenList,
+        setIsLoading,
+        pokeList, setPokeList,
+        setFilteredPokeList,
+        filter, setFilter
+    } = useContext(AppContext);
+    // const [pokeList, setPokeList] = useState([]);
+    // const [filteredPokeList, setFilteredPokeList] = useState([]);
+    // const [filter, setFilter] = useState('');
     const classes = useStyles();
     const [width, setWidth] = useState(0);
 
@@ -80,14 +86,14 @@ const Pokedex = (props) => {
                 if (isMounted()) {
                     setFilteredPokeList(pokemons);
                     setPokeList(pokemons);
-                    api.sleep(500); // half second delay to help render cards more smoothly
                     setIsLoading(false);
+                    api.sleep(1000); // half second delay to help render cards more smoothly
                 }
             }).catch((err) => {
                 console.log(err);
                 setIsLoading(false);
             });
-    }, [genNumber, setGenNumber, genValue, isMounted]);
+    }, [genNumber, setGenNumber, genValue, setIsLoading, setFilter, setFilteredPokeList, setPokeList, isMounted]);
 
     const updateFilter = input => {
         setFilter(input);
@@ -120,30 +126,20 @@ const Pokedex = (props) => {
                         <ApiCredit />
                     </Grid>
                     <Grid className={classes.explorer} container item>
-                        {genList !== undefined && <PokeExplorer
-                            //Search
-                            input={filter}
-                            onStartSearch={updateFilter}
-                            onSearchClick={clearFilter}
-                            //Dropdown
-                            genValue={genValue}
-                            genOptions={genList}
-                            onGenSelect={updateGen}
-                            //Refresh
-                            onRefreshClick={clearFilter}
-                        />}
+                        {genList !== undefined &&
+                            <PokeExplorer
+                                onStartSearch={updateFilter}
+                                onSearchClick={clearFilter}
+                                onGenSelect={updateGen}
+                                onRefreshClick={clearFilter}
+                            />}
                     </Grid>
                     <Grid className={classes.items} container item spacing={2}>
                         <Grid item>
-                            {genValue === '' ? <HomeCard /> :
-                                <PokeContainer
-                                    gen={genNumber}
-                                    filter={filter}
-                                    isLoading={isLoading}
-                                    pokemons={filteredPokeList}
-                                    searchOnClick={clearFilter}
-                                    history={history}
-                                />}
+                            {genValue === ''
+                                ? <HomeCard />
+                                : <PokeContainer searchOnClick={clearFilter} history={history} />
+                            }
                             <ScrollToTop showBelow={250} />
                         </Grid>
                     </Grid>

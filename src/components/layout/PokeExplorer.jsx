@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles, InputAdornment, Box, Card, CardContent, CardHeader, CardActions } from '@material-ui/core';
 import { Clear, Refresh, Search } from '@material-ui/icons';
 import {
@@ -8,6 +8,7 @@ import {
     MuiButton as RefreshButton,
     Favorites
 } from '../';
+import AppContext from '../../contexts/AppContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -67,7 +68,8 @@ const useStyles = makeStyles((theme) => ({
 // TODO : Add MuiSelects for filtering Pokemon by type, name and id
 // TODO : Figure out how to make the search faster
 // TODO : Figure out how to make the clear function faster
-export default function PokeExplorer({ input, onStartSearch, onSearchClick, genValue, genOptions, onGenSelect, onRefreshClick }) {
+export default function PokeExplorer({ onStartSearch, onSearchClick, onGenSelect, onRefreshClick }) {
+    const { filter, genValue, genList } = useContext(AppContext);
     const classes = useStyles();
     return (
         <Box className={classes.root}>
@@ -85,7 +87,7 @@ export default function PokeExplorer({ input, onStartSearch, onSearchClick, genV
                                 name='GenSelect'
                                 label='Select Generation'
                                 value={genValue}
-                                options={genOptions}
+                                options={genList}
                                 onChange={onGenSelect}
                             />
                             <RefreshButton
@@ -99,8 +101,8 @@ export default function PokeExplorer({ input, onStartSearch, onSearchClick, genV
                         <Box className={classes.boxItem} component='div'>
                             <SearchBar
                                 placeholder='Search Pokémon'
-                                label={input ? 'Search Pokémon' : ''}
-                                value={input}
+                                label={filter ? 'Search Pokémon' : ''}
+                                value={filter}
                                 variant='outlined'
                                 autoComplete='off'
                                 type='text'

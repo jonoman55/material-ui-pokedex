@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { PokeCard, NoResultsCard, LoadingCard } from '../index';
 import { makeStyles, Grid } from '@material-ui/core';
+import AppContext from '../../contexts/AppContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,7 +19,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function PokeContainer({ filter, isLoading, pokemons, searchOnClick, history }) {
+// TODO : Figure out if there is a hook that allows me to memorize all current filteredPokeList cards so I don't have to rerender them
+export default function PokeContainer({ searchOnClick, history }) {
+    const { isLoading, filter, filteredPokeList } = useContext(AppContext);
     const classes = useStyles();
 
     const getPokemonCard = pokemon => {
@@ -32,8 +35,8 @@ export default function PokeContainer({ filter, isLoading, pokemons, searchOnCli
     //isLoading check ->  render pokemon cards -> check for filtered results
     return (
         <Grid className={classes.root} container item spacing={2} sm md lg>
-            {!isLoading && pokemons.length !== 0 ? pokemons?.map(p => getPokemonCard(p))
-                : filter !== '' && pokemons.length === 0 ? <NoResultsCard onClick={searchOnClick} />
+            {!isLoading && filteredPokeList.length !== 0 ? filteredPokeList?.map(p => getPokemonCard(p))
+                : filter !== '' && filteredPokeList.length === 0 ? <NoResultsCard onClick={searchOnClick} />
                     : <LoadingCard />
             }
         </Grid>
