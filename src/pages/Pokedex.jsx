@@ -37,7 +37,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // TODO : Implement filters -> by type, id and name
-const Pokedex = ({ history }) => {
+const Pokedex = (props) => {
+    const { history } = props;
     const isMounted = useMountedState();
     const {
         genNumber, setGenNumber,
@@ -48,9 +49,6 @@ const Pokedex = ({ history }) => {
         setFilteredPokeList,
         filter, setFilter
     } = useContext(AppContext);
-    // const [pokeList, setPokeList] = useState([]);
-    // const [filteredPokeList, setFilteredPokeList] = useState([]);
-    // const [filter, setFilter] = useState('');
     const classes = useStyles();
     const [width, setWidth] = useState(0);
 
@@ -87,7 +85,7 @@ const Pokedex = ({ history }) => {
                     setFilteredPokeList(pokemons);
                     setPokeList(pokemons);
                     setIsLoading(false);
-                    api.sleep(1000); // half second delay to help render cards more smoothly
+                    api.sleep(750); // 750 millisecond delay to help render cards more smoothly
                 }
             }).catch((err) => {
                 console.log(err);

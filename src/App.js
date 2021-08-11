@@ -19,9 +19,7 @@ export default function App() {
             <AppState>
                 <Router history={history} forceRefresh={true}>
                     <Switch>
-                        <Route exact path='/'>
-                            <Pokedex history={history} />
-                        </Route>
+                        <Route exact path='/' component={Pokedex} />
                         <Route exact path='/:id' component={Pokemon} />
                     </Switch>
                 </Router>
